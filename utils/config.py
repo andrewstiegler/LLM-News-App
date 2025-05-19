@@ -8,7 +8,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 SERPAPI_KEY = os.getenv("SERPAPI_KEY")
 
 SEARCH_NUM_RESULTS = int(os.getenv("SEARCH_NUM_RESULTS", 5))
-MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4")
+MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4o-mini")
 
 # Optional safety check
 required_vars = {

@@ -1,18 +1,27 @@
 # core/summarize.py
-import openai
+from openai import OpenAI
 from utils.config import OPENAI_API_KEY, MODEL_NAME
 from asyncio import to_thread
+import os
+from dotenv import load_dotenv
 
-openai.api_key = OPENAI_API_KEY
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 async def summarize_article(text: str, max_words: int = 300) -> str:
     def _summarize():
+        if not text or not isinstance(text, str):
+            return "No article text available for summarization."
+        
         prompt = f"Summarize the following article in under {max_words} words:\n\n{text[:4000]}"
-        response = openai.ChatCompletion.create(
+        
+        response = client.chat.completions.create(
             model=MODEL_NAME,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.5
         )
-        return response['choices'][0]['message']['content'].strip()
+        
+        return response.choices[0].message.content.strip()
 
     return await to_thread(_summarize)
