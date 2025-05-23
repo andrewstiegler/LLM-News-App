@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+/* React Slick Carousel Tweaks */
+.slick-slider {
+  margin-bottom: 20px; /* Add some space below the carousel */
+}
+
+/* Ensure slides are properly contained - helps prevent overflow issues */
+.slick-slide > div {
+  /* The 'p-2' class was added to this div in SummaryViewer.jsx for spacing between slides */
+  /* You can add more specific styling here if needed, but for now, just ensure it's a block or flex container if necessary */
+}
+
+/* Optional: Style for dots (if you want to customize beyond slick-theme.css) */
+.slick-dots li button:before {
+  font-size: 10px; /* Make dots a bit larger if desired */
+  color: #6b7280; /* Default gray, change as needed */
+}
+.slick-dots li.slick-active button:before {
+  color: #1d4ed8; /* Example: blue for active dot, change as needed */
+}
+
+/* Optional: Style for arrows (if you want to customize beyond slick-theme.css) */
+/* You might need to target specific classes if default arrows are not visible or styled as desired */
+/* .slick-prev:before, .slick-next:before {
+  color: black; // Example: Make arrows black
+} */
