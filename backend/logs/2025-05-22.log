@@ -1,0 +1,939 @@
+2025-05-22 08:48:11,791 | DEBUG | asyncio | Using selector: KqueueSelector
+2025-05-22 08:48:11,923 | DEBUG | openai._base_client | Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-18a0c657-440c-47bf-b0e2-327a1f03d097', 'json_data': {'messages': [{'role': 'system', 'content': '\nYou are a skilled news researcher specialized in corporate and industry news. Your task is to rewrite user requests into a set of 1 to 4 **distinct, time-sensitive Google search queries** that surface the most relevant and recent news articles. These queries should focus on company-specific or industry-specific events like quarterly earnings, acquisitions, product launches, partnerships, or regulatory decisions.\n\n**Today\'s date is: May 22, 2025.** Use this as your reference for current year and quarter.\n\nFollow these instructions carefully:\n\n1. **Use Current Year and Quarter Context:**\n   - Assume today\'s year is the default unless the user explicitly specifies another year.\n   - If the user mentions a quarter, convert it to the most recent applicable quarter of 2025.\n   - If the user is vague (e.g. "recent earnings"), infer the most recent completed quarter.\n   - Never generate queries about past years (e.g., 2023) unless the user specifies it.\n\n2. **Produce Multiple Distinct Queries:**\n   - Generate between 1 and 4 different Google search queries that together fully cover the user’s topic.\n   - Each query should target a slightly different angle — e.g., different companies, products, subtopics, or news types (earnings, testing, launches, partnerships, etc.).\n\n3. **Query Format Rules:**\n   - DO NOT wrap the entire query in quotation marks.\n   - Use **keywords and short phrases**, not full-sentence queries.\n   - You MAY use individual quoted terms (e.g., "Abbott" "Q1 2025") for better targeting, but avoid long quoted phrases.\n   - DO NOT invent dates. Infer only from today\'s date or what the user explicitly states.\n\n4. **Examples:**\n   - Input: "Abbott infectious disease testing Q1"\n     → Output:\n       - Abbott Q1 2025 earnings report\n       - Abbott infectious disease test sales Q1 2025\n       - Abbott diagnostics revenue Q1 2025\n       - Abbott COVID flu RSV test update May 2025\n\n   - Input: "Cepheid product news"\n     → Output:\n       - Cepheid product launch 2025\n       - Cepheid respiratory panel update 2025\n       - Cepheid diagnostic pipeline May 2025\n\nReturn your output as a plain list of search-ready strings.\n'}, {'role': 'user', 'content': 'molecular testing for infectious disease company news'}], 'model': 'gpt-4o-mini', 'temperature': 0.3}}
+2025-05-22 08:48:11,944 | DEBUG | openai._base_client | Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-05-22 08:48:11,944 | DEBUG | httpcore.connection | connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-05-22 08:48:22,248 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10d2be660>
+2025-05-22 08:48:22,249 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x108981760> server_hostname='api.openai.com' timeout=5.0
+2025-05-22 08:48:22,300 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10d4b0550>
+2025-05-22 08:48:22,300 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2025-05-22 08:48:22,301 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:48:22,301 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2025-05-22 08:48:22,301 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:48:22,301 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2025-05-22 08:48:23,805 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:48:23 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'personal-8rj4hz'), (b'openai-processing-ms', b'992'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'996'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199442'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'167ms'), (b'x-request-id', b'req_621c2a4e6e5cb404d50c71f5f077ca10'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=3y9dP4FJn0bYfQGO30qGhfufQSHuI_3uNbsJrKbe948-1747918103-1.0.1.1-AshX1Ge48d2aw1w1c6Xr23tUlgE86HWcrNacK8MbtTM3RZIEV.ESlYl2rY32n0tqw8FMLE3bAmiHcrL9H_pqBsbPGirKLyQxCq6oOa9bB40; path=/; expires=Thu, 22-May-25 13:18:23 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=N7suRccmetujGyp9NCLpiqAIlHTHSXVAxEuIS84QzLA-1747918103831-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'943c6d6c18ebe248-ORD'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-05-22 08:48:23,809 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-22 08:48:23,809 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2025-05-22 08:48:23,810 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:48:23,810 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:48:23,810 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:48:23,811 | DEBUG | openai._base_client | HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Thu, 22 May 2025 12:48:23 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'personal-8rj4hz'), ('openai-processing-ms', '992'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '996'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199442'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '167ms'), ('x-request-id', 'req_621c2a4e6e5cb404d50c71f5f077ca10'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=3y9dP4FJn0bYfQGO30qGhfufQSHuI_3uNbsJrKbe948-1747918103-1.0.1.1-AshX1Ge48d2aw1w1c6Xr23tUlgE86HWcrNacK8MbtTM3RZIEV.ESlYl2rY32n0tqw8FMLE3bAmiHcrL9H_pqBsbPGirKLyQxCq6oOa9bB40; path=/; expires=Thu, 22-May-25 13:18:23 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=N7suRccmetujGyp9NCLpiqAIlHTHSXVAxEuIS84QzLA-1747918103831-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '943c6d6c18ebe248-ORD'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-05-22 08:48:23,811 | DEBUG | openai._base_client | request_id: req_621c2a4e6e5cb404d50c71f5f077ca10
+2025-05-22 08:48:23,881 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:48:23,882 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:49:48,782 | DEBUG | asyncio | Using selector: KqueueSelector
+2025-05-22 08:49:48,896 | DEBUG | openai._base_client | Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-fbd6420e-993e-499b-af19-b1bcce1d8260', 'json_data': {'messages': [{'role': 'system', 'content': '\nYou are a skilled news researcher specialized in corporate and industry news. Your task is to rewrite user requests into a set of 1 to 4 **distinct, time-sensitive Google search queries** that surface the most relevant and recent news articles. These queries should focus on company-specific or industry-specific events like quarterly earnings, acquisitions, product launches, partnerships, or regulatory decisions.\n\n**Today\'s date is: May 22, 2025.** Use this as your reference for current year and quarter.\n\nFollow these instructions carefully:\n\n1. **Use Current Year and Quarter Context:**\n   - Assume today\'s year is the default unless the user explicitly specifies another year.\n   - If the user mentions a quarter, convert it to the most recent applicable quarter of 2025.\n   - If the user is vague (e.g. "recent earnings"), infer the most recent completed quarter.\n   - Never generate queries about past years (e.g., 2023) unless the user specifies it.\n\n2. **Produce Multiple Distinct Queries:**\n   - Generate between 1 and 4 different Google search queries that together fully cover the user’s topic.\n   - Each query should target a slightly different angle — e.g., different companies, products, subtopics, or news types (earnings, testing, launches, partnerships, etc.).\n\n3. **Query Format Rules:**\n   - DO NOT wrap the entire query in quotation marks.\n   - Use **keywords and short phrases**, not full-sentence queries.\n   - You MAY use individual quoted terms (e.g., "Abbott" "Q1 2025") for better targeting, but avoid long quoted phrases.\n   - DO NOT invent dates. Infer only from today\'s date or what the user explicitly states.\n\n4. **Examples:**\n   - Input: "Abbott infectious disease testing Q1"\n     → Output:\n       - Abbott Q1 2025 earnings report\n       - Abbott infectious disease test sales Q1 2025\n       - Abbott diagnostics revenue Q1 2025\n       - Abbott COVID flu RSV test update May 2025\n\n   - Input: "Cepheid product news"\n     → Output:\n       - Cepheid product launch 2025\n       - Cepheid respiratory panel update 2025\n       - Cepheid diagnostic pipeline May 2025\n\nReturn your output as a plain list of search-ready strings.\n'}, {'role': 'user', 'content': 'molecular testing for infectious disease company news'}], 'model': 'gpt-4o-mini', 'temperature': 0.3}}
+2025-05-22 08:49:48,914 | DEBUG | openai._base_client | Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-05-22 08:49:48,914 | DEBUG | httpcore.connection | connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-05-22 08:49:48,974 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x103e06660>
+2025-05-22 08:49:48,974 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x103909760> server_hostname='api.openai.com' timeout=5.0
+2025-05-22 08:49:49,021 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x103ef8550>
+2025-05-22 08:49:49,021 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2025-05-22 08:49:49,022 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:49:49,022 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2025-05-22 08:49:49,022 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:49:49,022 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2025-05-22 08:49:50,033 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:49:50 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'personal-8rj4hz'), (b'openai-processing-ms', b'898'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'900'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199442'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'167ms'), (b'x-request-id', b'req_a36bef7b966b708693dd10889b38085f'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=aeRnVtFYDkiYT.eyvrnRmSQHxl.yN3U6LKNLiN51N2U-1747918190-1.0.1.1-7MOzTJUVm6t3Szy_h5oEq584i9332CuhPqeYv1d6Hx0su1Ya0c98DyRYS9mZcTJyKR6cILn3qSxq1IDodick_IVb2EFLUSHkISZq2SySE_o; path=/; expires=Thu, 22-May-25 13:19:50 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=TomIIJbG6SMw2BjoEtWhvZ3tC25MULveAdarABBV0PE-1747918190113-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'943c6f8a2ec519b0-ORD'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-05-22 08:49:50,035 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-22 08:49:50,035 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2025-05-22 08:49:50,036 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:49:50,036 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:49:50,036 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:49:50,037 | DEBUG | openai._base_client | HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Thu, 22 May 2025 12:49:50 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'personal-8rj4hz'), ('openai-processing-ms', '898'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '900'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199442'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '167ms'), ('x-request-id', 'req_a36bef7b966b708693dd10889b38085f'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=aeRnVtFYDkiYT.eyvrnRmSQHxl.yN3U6LKNLiN51N2U-1747918190-1.0.1.1-7MOzTJUVm6t3Szy_h5oEq584i9332CuhPqeYv1d6Hx0su1Ya0c98DyRYS9mZcTJyKR6cILn3qSxq1IDodick_IVb2EFLUSHkISZq2SySE_o; path=/; expires=Thu, 22-May-25 13:19:50 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=TomIIJbG6SMw2BjoEtWhvZ3tC25MULveAdarABBV0PE-1747918190113-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '943c6f8a2ec519b0-ORD'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-05-22 08:49:50,037 | DEBUG | openai._base_client | request_id: req_a36bef7b966b708693dd10889b38085f
+2025-05-22 08:49:50,112 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:49:50,112 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:51:48,698 | DEBUG | asyncio | Using selector: KqueueSelector
+2025-05-22 08:51:48,820 | DEBUG | openai._base_client | Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-6bb95e1f-b175-4f4d-bc04-80572699e8ca', 'json_data': {'messages': [{'role': 'system', 'content': '\nYou are a skilled news researcher specialized in corporate and industry news. Your task is to rewrite user requests into a set of 1 to 4 **distinct, time-sensitive Google search queries** that surface the most relevant and recent news articles. These queries should focus on company-specific or industry-specific events like quarterly earnings, acquisitions, product launches, partnerships, or regulatory decisions.\n\n**Today\'s date is: May 22, 2025.** Use this as your reference for current year and quarter.\n\nFollow these instructions carefully:\n\n1. **Use Current Year and Quarter Context:**\n   - Assume today\'s year is the default unless the user explicitly specifies another year.\n   - If the user mentions a quarter, convert it to the most recent applicable quarter of 2025.\n   - If the user is vague (e.g. "recent earnings"), infer the most recent completed quarter.\n   - Never generate queries about past years (e.g., 2023) unless the user specifies it.\n\n2. **Produce Multiple Distinct Queries:**\n   - Generate between 1 and 4 different Google search queries that together fully cover the user’s topic.\n   - Each query should target a slightly different angle — e.g., different companies, products, subtopics, or news types (earnings, testing, launches, partnerships, etc.).\n\n3. **Query Format Rules:**\n   - DO NOT wrap the entire query in quotation marks.\n   - Use **keywords and short phrases**, not full-sentence queries.\n   - You MAY use individual quoted terms (e.g., "Abbott" "Q1 2025") for better targeting, but avoid long quoted phrases.\n   - DO NOT invent dates. Infer only from today\'s date or what the user explicitly states.\n\n4. **Examples:**\n   - Input: "Abbott infectious disease testing Q1"\n     → Output:\n       - Abbott Q1 2025 earnings report\n       - Abbott infectious disease test sales Q1 2025\n       - Abbott diagnostics revenue Q1 2025\n       - Abbott COVID flu RSV test update May 2025\n\n   - Input: "Cepheid product news"\n     → Output:\n       - Cepheid product launch 2025\n       - Cepheid respiratory panel update 2025\n       - Cepheid diagnostic pipeline May 2025\n\nReturn your output as a plain list of search-ready strings.\n'}, {'role': 'user', 'content': 'molecular testing for infectious disease company news'}], 'model': 'gpt-4o-mini', 'temperature': 0.3}}
+2025-05-22 08:51:48,840 | DEBUG | openai._base_client | Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-05-22 08:51:48,840 | DEBUG | httpcore.connection | connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-05-22 08:51:59,163 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1099be660>
+2025-05-22 08:51:59,163 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x108a81760> server_hostname='api.openai.com' timeout=5.0
+2025-05-22 08:51:59,203 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x109ab0550>
+2025-05-22 08:51:59,204 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2025-05-22 08:51:59,204 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:51:59,204 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2025-05-22 08:51:59,204 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:51:59,204 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2025-05-22 08:52:00,213 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:52:00 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'personal-8rj4hz'), (b'openai-processing-ms', b'898'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'901'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199442'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'167ms'), (b'x-request-id', b'req_679f27cc13b479f258a55cbe98fa678e'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=pr_hfgiy61NKceqZQpvPogbk.ANDla8wMI8FHuFXtuo-1747918320-1.0.1.1-vYdZ1kSuKKf2rVu03RHpmjuwYd6wgMvKGBRhonx5MNKbBrVWCrs9bcAYRolo86jMyfwbh0z66bWacewyDGFoQfxDuurcwN48nLTPyGJP0ag; path=/; expires=Thu, 22-May-25 13:22:00 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=nXRYHPunGA5PzbzrhlyFWYL5Q5ZOz8geTenfcXbw3i8-1747918320301-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'943c72b7bd7682cc-IAD'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-05-22 08:52:00,214 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-22 08:52:00,214 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2025-05-22 08:52:00,214 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:52:00,215 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:52:00,215 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:52:00,215 | DEBUG | openai._base_client | HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Thu, 22 May 2025 12:52:00 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'personal-8rj4hz'), ('openai-processing-ms', '898'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '901'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199442'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '167ms'), ('x-request-id', 'req_679f27cc13b479f258a55cbe98fa678e'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=pr_hfgiy61NKceqZQpvPogbk.ANDla8wMI8FHuFXtuo-1747918320-1.0.1.1-vYdZ1kSuKKf2rVu03RHpmjuwYd6wgMvKGBRhonx5MNKbBrVWCrs9bcAYRolo86jMyfwbh0z66bWacewyDGFoQfxDuurcwN48nLTPyGJP0ag; path=/; expires=Thu, 22-May-25 13:22:00 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=nXRYHPunGA5PzbzrhlyFWYL5Q5ZOz8geTenfcXbw3i8-1747918320301-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '943c72b7bd7682cc-IAD'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-05-22 08:52:00,215 | DEBUG | openai._base_client | request_id: req_679f27cc13b479f258a55cbe98fa678e
+2025-05-22 08:52:00,274 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:52:00,275 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:03,935 | DEBUG | asyncio | Using selector: KqueueSelector
+2025-05-22 08:55:04,055 | DEBUG | openai._base_client | Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-de366932-12e4-4873-8a9c-4e0416893ea2', 'json_data': {'messages': [{'role': 'system', 'content': '\nYou are a skilled news researcher specialized in corporate and industry news. Your task is to rewrite user requests into a set of 1 to 4 **distinct, time-sensitive Google search queries** that surface the most relevant and recent news articles. These queries should focus on company-specific or industry-specific events like quarterly earnings, acquisitions, product launches, partnerships, or regulatory decisions.\n\n**Today\'s date is: May 22, 2025.** Use this as your reference for current year and quarter.\n\nFollow these instructions carefully:\n\n1. **Use Current Year and Quarter Context:**\n   - Assume today\'s year is the default unless the user explicitly specifies another year.\n   - If the user mentions a quarter, convert it to the most recent applicable quarter of 2025.\n   - If the user is vague (e.g. "recent earnings"), infer the most recent completed quarter.\n   - Never generate queries about past years (e.g., 2023) unless the user specifies it.\n\n2. **Produce Multiple Distinct Queries:**\n   - Generate between 1 and 4 different Google search queries that together fully cover the user’s topic.\n   - Each query should target a slightly different angle — e.g., different companies, products, subtopics, or news types (earnings, testing, launches, partnerships, etc.).\n\n3. **Query Format Rules:**\n   - DO NOT wrap the entire query in quotation marks.\n   - Use **keywords and short phrases**, not full-sentence queries.\n   - You MAY use individual quoted terms (e.g., "Abbott" "Q1 2025") for better targeting, but avoid long quoted phrases.\n   - DO NOT invent dates. Infer only from today\'s date or what the user explicitly states.\n\n4. **Examples:**\n   - Input: "Abbott infectious disease testing Q1"\n     → Output:\n       - Abbott Q1 2025 earnings report\n       - Abbott infectious disease test sales Q1 2025\n       - Abbott diagnostics revenue Q1 2025\n       - Abbott COVID flu RSV test update May 2025\n\n   - Input: "Cepheid product news"\n     → Output:\n       - Cepheid product launch 2025\n       - Cepheid respiratory panel update 2025\n       - Cepheid diagnostic pipeline May 2025\n\nReturn your output as a plain list of search-ready strings.\n'}, {'role': 'user', 'content': 'molecular testing for infectious disease company news'}], 'model': 'gpt-4o-mini', 'temperature': 0.3}}
+2025-05-22 08:55:04,073 | DEBUG | openai._base_client | Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-05-22 08:55:04,074 | DEBUG | httpcore.connection | connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-05-22 08:55:09,396 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1086be660>
+2025-05-22 08:55:09,397 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x103d85760> server_hostname='api.openai.com' timeout=5.0
+2025-05-22 08:55:09,443 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1098b0410>
+2025-05-22 08:55:09,443 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2025-05-22 08:55:09,444 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:09,444 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2025-05-22 08:55:09,444 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:09,444 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2025-05-22 08:55:10,346 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:55:10 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'personal-8rj4hz'), (b'openai-processing-ms', b'766'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'771'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199442'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'167ms'), (b'x-request-id', b'req_9f28096779da177704f684ff36f6ad19'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=Cl8O5LEU2ug_KqN2xDihlvEVAs.W39376oAL4j.ZzCc-1747918510-1.0.1.1-FjWSTwc7PgA_bRa8JgAYmxK4ePbURxJkGSonFsAul9MfUw0qzcPmKWjOxPYWUhzpuLhdpY6oqRE956hwF0LzA1e2ScN40ST7_VEvHYQkNQY; path=/; expires=Thu, 22-May-25 13:25:10 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=Hgas.X1qe_ruIcCTh6rlaBHAdJccReQtdUYJromlroE-1747918510428-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'943c775cce65105c-ORD'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-05-22 08:55:10,347 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-22 08:55:10,347 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2025-05-22 08:55:10,350 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:10,350 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:10,350 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:10,350 | DEBUG | openai._base_client | HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Thu, 22 May 2025 12:55:10 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'personal-8rj4hz'), ('openai-processing-ms', '766'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '771'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199442'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '167ms'), ('x-request-id', 'req_9f28096779da177704f684ff36f6ad19'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=Cl8O5LEU2ug_KqN2xDihlvEVAs.W39376oAL4j.ZzCc-1747918510-1.0.1.1-FjWSTwc7PgA_bRa8JgAYmxK4ePbURxJkGSonFsAul9MfUw0qzcPmKWjOxPYWUhzpuLhdpY6oqRE956hwF0LzA1e2ScN40ST7_VEvHYQkNQY; path=/; expires=Thu, 22-May-25 13:25:10 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=Hgas.X1qe_ruIcCTh6rlaBHAdJccReQtdUYJromlroE-1747918510428-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '943c775cce65105c-ORD'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-05-22 08:55:10,350 | DEBUG | openai._base_client | request_id: req_9f28096779da177704f684ff36f6ad19
+2025-05-22 08:55:10,356 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): www.google.com:443
+2025-05-22 08:55:10,554 | DEBUG | urllib3.connectionpool | https://www.google.com:443 "GET /search?q=molecular+testing+infectious+disease+companies+news+May+after%3A2025-05-15&num=5&hl=en&start=0&safe=active HTTP/1.1" 200 None
+2025-05-22 08:55:10,937 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): www.google.com:443
+2025-05-22 08:55:11,083 | DEBUG | urllib3.connectionpool | https://www.google.com:443 "GET /search?q=infectious+disease+molecular+diagnostics+product+launch+after%3A2025-05-15&num=5&hl=en&start=0&safe=active HTTP/1.1" 200 None
+2025-05-22 08:55:11,366 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): www.google.com:443
+2025-05-22 08:55:11,514 | DEBUG | urllib3.connectionpool | https://www.google.com:443 "GET /search?q=molecular+testing+partnerships+after%3A2025-05-15&num=5&hl=en&start=0&safe=active HTTP/1.1" 200 None
+2025-05-22 08:55:11,809 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): www.google.com:443
+2025-05-22 08:55:11,951 | DEBUG | urllib3.connectionpool | https://www.google.com:443 "GET /search?q=recent+advancements+in+infectious+disease+molecular+testing+May+after%3A2025-05-15&num=5&hl=en&start=0&safe=active HTTP/1.1" 200 None
+2025-05-22 08:55:12,547 | DEBUG | httpcore.connection | connect_tcp.started host='www.globenewswire.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,548 | DEBUG | httpcore.connection | connect_tcp.started host='www.genomeweb.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,548 | DEBUG | httpcore.connection | connect_tcp.started host='www.globenewswire.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,548 | DEBUG | httpcore.connection | connect_tcp.started host='diagnostics.roche.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,548 | DEBUG | httpcore.connection | connect_tcp.started host='www.prnewswire.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,548 | DEBUG | httpcore.connection | connect_tcp.started host='www.leicabiosystems.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,548 | DEBUG | httpcore.connection | connect_tcp.started host='scholar.google.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,548 | DEBUG | httpcore.connection | connect_tcp.started host='www.marketsandmarkets.com' port=443 local_address=None timeout=10 socket_options=None
+2025-05-22 08:55:12,634 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1098c63c0>
+2025-05-22 08:55:12,634 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10845bc80> server_hostname='www.globenewswire.com' timeout=10
+2025-05-22 08:55:12,635 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109bae490>
+2025-05-22 08:55:12,635 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10845b9b0> server_hostname='www.globenewswire.com' timeout=10
+2025-05-22 08:55:12,659 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109baead0>
+2025-05-22 08:55:12,659 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10845be30> server_hostname='www.prnewswire.com' timeout=10
+2025-05-22 08:55:12,660 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109bb0770>
+2025-05-22 08:55:12,660 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x109b80170> server_hostname='www.leicabiosystems.com' timeout=10
+2025-05-22 08:55:12,661 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109bb1f30>
+2025-05-22 08:55:12,661 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10845bf50> server_hostname='www.genomeweb.com' timeout=10
+2025-05-22 08:55:12,668 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109b4d7f0>
+2025-05-22 08:55:12,668 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x109b80320> server_hostname='scholar.google.com' timeout=10
+2025-05-22 08:55:12,672 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109bb58c0>
+2025-05-22 08:55:12,672 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,674 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,675 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109bb4f30>
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,675 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,676 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109b53450>
+2025-05-22 08:55:12,676 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10845bbf0> server_hostname='diagnostics.roche.com' timeout=10
+2025-05-22 08:55:12,687 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109b52f50>
+2025-05-22 08:55:12,687 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,687 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,687 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,687 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,687 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,689 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10852a210>
+2025-05-22 08:55:12,689 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,689 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,689 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,689 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,689 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,705 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10852bd40>
+2025-05-22 08:55:12,705 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,705 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,705 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,705 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,705 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,713 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'keep-alive'), (b'Content-Length', b'11730'), (b'Content-Language', b'en-us'), (b'Content-Security-Policy', b"frame-ancestors 'self' https://*.us-2.platformsh.site https://*.leicabiosystems.com https://punchoutcommerce.com https://*.tradecentric.com https://*.sciquest.com https://*.jaggaer.com https://*.ariba.com https://*.punchout2go.com https://*.ziphq.com; report-uri /report-csp-violation"), (b'Content-Type', b'text/html; charset=UTF-8'), (b'Etag', b'"1747917960"'), (b'Expires', b'Sun, 19 Nov 1978 05:00:00 GMT'), (b'Last-Modified', b'Thu, 22 May 2025 12:46:00 GMT'), (b'Referrer-Policy', b'no-referrer-when-downgrade'), (b'Traceresponse', b'00-1841da1fae3e765efbeb214a4a909583-2c6ab4421b1726ea-01'), (b'X-Content-Type-Options', b'nosniff'), (b'X-Debug-Info', b'eyJyZXRyaWVzIjowfQ=='), (b'X-Drupal-Dynamic-Cache', b'UNCACHEABLE (poor cacheability)'), (b'X-Frame-Options', b'ALLOW-FROM https://punchoutcommerce.com'), (b'X-Platform-Server', b'i-0b5f560b39025c467'), (b'X-Platform-Server', b'i-0b5f560b39025c467'), (b'X-Xss-Protection', b'1; mode=block'), (b'Content-Encoding', b'gzip'), (b'Accept-Ranges', b'bytes'), (b'Age', b'552'), (b'Date', b'Thu, 22 May 2025 12:55:12 GMT'), (b'X-Served-By', b'cache-iad-kjyo7100173-IAD, cache-ewr-kewr1740090-EWR'), (b'X-Cache', b'HIT, MISS'), (b'X-Cache-Hits', b'3, 0'), (b'Vary', b'Cookie, Accept-Encoding'), (b'Cache-Control', b'no-store, no-cache, must-revalidate, max-age=0'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload')])
+2025-05-22 08:55:12,713 | INFO | httpx | HTTP Request: GET https://www.leicabiosystems.com/us/news/leica-biosystems-and-bristol-myers-squibb-announce-strategic-partnership-to-drive/ "HTTP/1.1 200 OK"
+2025-05-22 08:55:12,714 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,714 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109b9f150>
+2025-05-22 08:55:12,714 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,715 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:12,715 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:12,715 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,715 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,715 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,715 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,715 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:12,715 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:12,715 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - #page>header#header.header
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - header#header.header>.topHeader
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - .container>.topHeader-wrap.d-flex.position-relative.flex-wrap.align-items-center.pt-1.pb-1
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - .topHeader-wrap.d-flex.position-relative.flex-wrap.align-items-center.pt-1.pb-1>.topHeader-claim
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - .topHeader-wrap.d-flex.position-relative.flex-wrap.align-items-center.pt-1.pb-1>ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-languageSwitch.topHeader-item.align-items-center
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-careers.topHeader-item.align-items-center
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - li.topHeader-careers.topHeader-item.align-items-center>a.topHeader-link.text-decoration-none
+2025-05-22 08:55:12,731 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-login.topHeader-item.align-items-center
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - li.topHeader-login.topHeader-item.align-items-center>a.topHeader-link.text-decoration-none
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-account-info.topHeader-item.align-items-center.topHeader-single-account.d-none
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - li.topHeader-account-info.topHeader-item.align-items-center.topHeader-single-account.d-none>span.topHeader-link.text-decoration-none
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-account-info.topHeader-item.align-items-center.d-none
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - .dropdown>button#topHeader-account-info-toggle.btn.dropdown-toggle
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - .dropdown>.dropdown-menu
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-account-actions.topHeader-item.d-none
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - .dropdown>button#topHeader-account-actions-toggle.btn.dropdown-toggle
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - .dropdown>.dropdown-menu
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-quick-order.topHeader-item.align-items-center
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - li.topHeader-quick-order.topHeader-item.align-items-center>a.topHeader-link.text-decoration-none
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.topHeader-menu.nav.d-flex.mb-0.pl-0.flex-nowrap>li.topHeader-cart.topHeader-item.align-items-center
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - li.topHeader-cart.topHeader-item.align-items-center>a.topHeader-link.text-decoration-none
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,732 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.pl-0.list-unstyled.bg-white>li.menu-item.level-2
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.flex-row.justify-content-center.mb-0.level-base.list-unstyled.d-none.d-md-flex>li.menu-item.level-0.rounded.pr-3
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.flex-row.justify-content-center.mb-0.level-base.list-unstyled.d-none.d-md-flex>li.menu-item.level-0.rounded.pr-3
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - ul.flex-row.justify-content-center.mb-0.level-base.list-unstyled.d-none.d-md-flex>li.menu-item.level-0.rounded.pr-3
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - #page>footer.site-footer.lbs-footer
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-3.col-md-3.col-sm-12.footer-column>.footer-section.footer-section--company
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - .d-flex.justify-content-between.flex-wrap>img.img-fluid.footer-logo
+2025-05-22 08:55:12,733 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--company>.footer-location
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li>a.footer-link.footer-link--tel
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li>a.footer-link.footer-link--fax
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li>a.footer-link.footer-link--contact
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-2.col-md-3.col-sm-6.footer-column>.footer-section.footer-section--about
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--about>h3.footer-title
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--about>ul.footer-menu
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link.optanon-toggle-display
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-2.col-md-3.col-sm-6.footer-column>.footer-section.footer-section--clinical
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--clinical>h3.footer-title
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--clinical>ul.footer-menu
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul.footer-menu>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-2.col-md-3.col-sm-6.footer-column>.footer-section.footer-section--social
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--social>h3.footer-title
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--social>.footer-menu
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.footer-item
+2025-05-22 08:55:12,734 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section--social>.footer-menu.footer-menu--social
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-3.col-md-12.col-sm-6.footer-column>.footer-section.footer-section-newsletter
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-section.footer-section-newsletter>h3.footer-title
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-main>.row.footer-section.d-none
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-2.col-lg-3>img.img-fluid.footer-logo
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .row.footer-section.d-none>.col-xl-2.col-lg-4.footer-location
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li>a.footer-link.footer-link--tel
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - li>a.footer-link.footer-link--contact
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-main>#lbs--footer-legal.footer-legal
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - #lbs--footer-legal.footer-legal>.footer-nav
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item.col-md-4.col-sm-12
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item.d-none
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - span.footer-item.d-none>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - span.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - span.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - span.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - span.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - span.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - .footer-nav>span.footer-item
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - span.footer-item>a.footer-link
+2025-05-22 08:55:12,735 | DEBUG | readability.readability | Removing unlikely candidate - #myModalSubscribe.modal.fade>span.spinner-border-footer
+2025-05-22 08:55:12,737 | DEBUG | readability.readability | Branch 99.020 .col-lg-8>.node__content link density 0.019 -> 97.129
+2025-05-22 08:55:12,738 | DEBUG | readability.readability | Branch 39.510 .row.news-post-row.lbs-active-image-lightbox>.col-lg-8 link density 0.019 -> 38.756
+2025-05-22 08:55:12,738 | DEBUG | readability.readability | Top 5 : 97.129 .col-lg-8>.node__content
+2025-05-22 08:55:12,738 | DEBUG | readability.readability | Top 5 : 38.756 .row.news-post-row.lbs-active-image-lightbox>.col-lg-8
+2025-05-22 08:55:12,739 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 403, b'Forbidden', [(b'Date', b'Thu, 22 May 2025 12:55:12 GMT'), (b'Content-Type', b'text/html; charset=UTF-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'close'), (b'accept-ch', b'Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA'), (b'cf-mitigated', b'challenge'), (b'critical-ch', b'Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA'), (b'cross-origin-embedder-policy', b'require-corp'), (b'cross-origin-opener-policy', b'same-origin'), (b'cross-origin-resource-policy', b'same-origin'), (b'origin-agent-cluster', b'?1'), (b'permissions-policy', b'accelerometer=(),autoplay=(),browsing-topics=(),camera=(),clipboard-read=(),clipboard-write=(),geolocation=(),gyroscope=(),hid=(),interest-cohort=(),magnetometer=(),microphone=(),payment=(),publickey-credentials-get=(),screen-wake-lock=(),serial=(),sync-xhr=(),usb=()'), (b'referrer-policy', b'same-origin'), (b'server-timing', b'chlray;desc="943c777109ae3b96"'), (b'x-content-type-options', b'nosniff'), (b'x-frame-options', b'SAMEORIGIN'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0'), (b'Expires', b'Thu, 01 Jan 1970 00:00:01 GMT'), (b'Set-Cookie', b'__cf_bm=ik28goJXBXN0GcjZzLNSgvEbE5LBo1C8pT8Qp0ouv4k-1747918512-1.0.1.1-qyjve389V0WSEO8PanhFFmWZrBO0Lrfvu6K2cxBXOcxWJzEh50en8ulZh9RxKfJJfI8tDrLPZlaHPyRGLuRNsHlWngLy8_8NlM69ZaAdlOg; path=/; expires=Thu, 22-May-25 13:25:12 GMT; domain=.genomeweb.com; HttpOnly; Secure; SameSite=None'), (b'Vary', b'Accept-Encoding'), (b'Server', b'cloudflare'), (b'CF-RAY', b'943c777109ae3b96-IAD'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-05-22 08:55:12,739 | INFO | httpx | HTTP Request: GET https://www.genomeweb.com/molecular-diagnostics "HTTP/1.1 403 Forbidden"
+2025-05-22 08:55:12,739 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,739 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:12,739 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:12,741 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109b9d710>
+2025-05-22 08:55:12,741 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:12,741 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,741 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:55:12 GMT'), (b'Content-Type', b'text/html; charset=UTF-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'Last-Modified', b'Thu, 22 May 2025 12:06:28 GMT'), (b'X-XSS-Protection', b'1; mode=block'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'https://app.zoominfo.com; *.prnewswire.com; *.multivu.com; *.vocusdr.com; *.prweb.com'), (b'CF-Cache-Status', b'HIT'), (b'Age', b'2917'), (b'Expires', b'Sat, 24 May 2025 12:55:12 GMT'), (b'Cache-Control', b'public, max-age=172800'), (b'Set-Cookie', b'__cf_bm=56gpXp9EGxdWjz_5MyurlkUzXqwVgvv2VvufLqvMNsg-1747918512-1.0.1.1-15JiWw.VWYzYGBagb3kGLKeuNK1E59TbEdNvg2xW.u666yRTUTJfRUn.IXuiXOGfSmD2y0ZiKBNaMIbQovsC25wFgQqWW6J59FDQ2bAecK8; path=/; expires=Thu, 22-May-25 13:25:12 GMT; domain=.www.prnewswire.com; HttpOnly; Secure; SameSite=None'), (b'Vary', b'Accept-Encoding'), (b'Server', b'cloudflare'), (b'CF-RAY', b'943c77711892fc18-IAD'), (b'Content-Encoding', b'gzip')])
+2025-05-22 08:55:12,742 | INFO | httpx | HTTP Request: GET https://www.prnewswire.com/news-releases/oncoswab-announces-collaboration-with-mayo-clinic-to-advance-non-invasive-cancer-diagnostics-302462713.html "HTTP/1.1 200 OK"
+2025-05-22 08:55:12,742 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,742 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,742 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,742 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,742 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,747 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:12,747 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:12,747 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:12,747 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:12,747 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:12,770 | DEBUG | readability.readability | Removing unlikely candidate - nav.navbar.navbar-default>.navbar-header
+2025-05-22 08:55:12,771 | DEBUG | readability.readability | Removing unlikely candidate - header.main-header.visible-lg-block.prnewswire>#sub-nav-tier.navigation-menu
+2025-05-22 08:55:12,771 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-dropdown.dropdown.fw.nav-title>ul#1-submenu.dropdown-menu.tier-three
+2025-05-22 08:55:12,771 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-dropdown.dropdown.fw.nav-title>ul.dropdown-menu.tier-three
+2025-05-22 08:55:12,771 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-dropdown.dropdown.fw.nav-title>ul.dropdown-menu.tier-three
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-dropdown.dropdown.fw.nav-title>ul.dropdown-menu.tier-three
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-dropdown.dropdown.fw.nav-title>ul.dropdown-menu.tier-three
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-dropdown.dropdown.fw.nav-title>ul.dropdown-menu.tier-three
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-sub-menu
+2025-05-22 08:55:12,772 | DEBUG | readability.readability | Removing unlikely candidate - div{01}>nav.header-mobile.navbar.navbar-default.navbar-fixed-top.mm-slideout.prnewswire
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - li.dropdown.visible-xs>ul.dropdown-menu.contact
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - li>a.btn.btn-primary.btn-nav-cta.hidden-xs.omniture-sticky-menu
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - p.text-center>a.omniture-sticky-menu
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - p.text-center>a.omniture-sticky-menu
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - li#mobile-searchLoggedIn1.visible-xs.visible-sm.visible-md.dropdown>ul.dropdown-menu.search
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - li.input-group>input#mobileSiteSearchbox.dropddown-menu
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-default>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-default>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-default>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-default>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-default>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-default>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-default>li.mm-footer.mm-social
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - a>i.fab.fab-twitter
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-news>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-news>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-news>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-news>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-news>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-news>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-news>li.mm-footer.mm-social
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - a>i.fab.fab-twitter
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-products>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-products>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-products>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-products>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-products>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-products>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-products>li.mm-footer.mm-social
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - a>i.fab.fab-twitter
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-contact>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-contact>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-contact>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-contact>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-contact>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-contact>li.mm-footer
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - ul#mm-contact>li.mm-footer.mm-social
+2025-05-22 08:55:12,773 | DEBUG | readability.readability | Removing unlikely candidate - a>i.fab.fab-twitter
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - article.news-release.inline-gallery-template>header.container.release-header
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - ul.list-unstyled>a.btn-twitter
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - a.btn-twitter>li.social-twitter
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - span>i.fab.fab-twitter
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - ul.list-unstyled>a.btn-twitter__mobile
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - a.btn-twitter__mobile>li.social-twitter
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - li.social-twitter>i.fab.fab-twitter
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - #stock-modal-content.modal-content>.modal-header
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - div{02}>footer#js-footer
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .col-sm-3.col-xs-12.hidden-xs>.footerContact
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .footerContact>.footer-head.hidden-xs
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .footerContact>ul.footer-contact
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - li>.footer-num
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - li>a#chatLinkFooter.chatLink
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .col-sm-3.col-xs-12.hidden-xs>.footerDropdown
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .dropup.global-sites.hidden-xs>ul#dropdown-menu-contact-us.dropdown-menu
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .col-sm-3.col-xs-12.hidden-xs>.footerSocial
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - a>span.fab.fab-twitter
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .col-sm-3.col-xs-12.hidden-xs>.footerList
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .footerList>.footer-head
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .col-sm-3.col-xs-12.hidden-xs>.footerList
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .footerList>.footer-head
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - .footer-head>h2.omniture-footer_subsites.hidden-xs
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,774 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .col-sm-3.col-xs-12.hidden-xs>.footerDropdown
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .dropup.global-sites.hidden-xs>ul#dropdown-menu-global-sites.dropdown-menu
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .col-sm-3.col-xs-12.hidden-xs>.footerList
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .footerList>.footer-head
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer_subsites
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .visible-xs.col-xs-12.text-center>.footer-head
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .visible-xs.col-xs-12.text-center>.footer-head
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .visible-xs.col-xs-12.text-center>.footer-head
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - .col-xs-12.visible-xs.dropup>ul.dropdown-menu
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - div{03}>section.sub-footer
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer-links
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer-links
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer-links
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer-links
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer-links
+2025-05-22 08:55:12,775 | DEBUG | readability.readability | Removing unlikely candidate - li>a.omniture-footer-links
+2025-05-22 08:55:12,777 | DEBUG | readability.readability | Branch  7.290 .row>.col-sm-11 link density 0.000 ->  7.290
+2025-05-22 08:55:12,777 | DEBUG | readability.readability | Branch  6.145 .qs-pending>.row link density 0.000 ->  6.145
+2025-05-22 08:55:12,777 | DEBUG | readability.readability | Branch -17.360 #response-json.qs-results>.media.qs-no-results link density 0.000 -> -17.360
+2025-05-22 08:55:12,777 | DEBUG | readability.readability | Branch  6.320 .col-sm-12>#response-json.qs-results link density 0.000 ->  6.320
+2025-05-22 08:55:12,777 | DEBUG | readability.readability | Branch 37.230 .row>.col-lg-10.col-lg-offset-1 link density 0.000 -> 37.230
+2025-05-22 08:55:12,778 | DEBUG | readability.readability | Branch 21.115 section.release-body.container>.row link density 0.000 -> 21.115
+2025-05-22 08:55:12,778 | DEBUG | readability.readability | Branch  7.520 .newsFeaturedSection>.newsFeaturedWrap link density 0.075 ->  6.957
+2025-05-22 08:55:12,778 | DEBUG | readability.readability | Branch  6.260 .col-sm-10.col-sm-offset-1>.newsFeaturedSection link density 0.075 ->  5.792
+2025-05-22 08:55:12,778 | DEBUG | readability.readability | Branch  7.290 .newFeaturedIcon>.featuredIcon-col link density 0.000 ->  7.290
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Branch  8.400 .newsFeaturedWrap>.newFeaturedIcon link density 0.000 ->  8.400
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Branch  7.250 .newFeaturedIcon>.featuredIcon-col link density 0.000 ->  7.250
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Branch  7.260 .newFeaturedIcon>.featuredIcon-col link density 0.000 ->  7.260
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Top 5 : 37.230 .row>.col-lg-10.col-lg-offset-1
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Top 5 : 21.115 section.release-body.container>.row
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Top 5 :  8.400 .newsFeaturedWrap>.newFeaturedIcon
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Top 5 :  7.290 .row>.col-sm-11
+2025-05-22 08:55:12,779 | DEBUG | readability.readability | Top 5 :  7.290 .newFeaturedIcon>.featuredIcon-col
+2025-05-22 08:55:12,825 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:55:12 GMT'), (b'Expires', b'Thu, 22 May 2025 12:55:12 GMT'), (b'Cache-Control', b'private, max-age=0'), (b'Content-Type', b'text/html; charset=UTF-8'), (b'Set-Cookie', b'NID=524=V_OTIBZ1zzqlcWrEoiqgdPZGFnR8XTbCjEizSq8LMMeLrY2joFcL8vWq9RtjFZESbZirRE9U0Ybs-_u0oRX9wZVrYdMHBNrr0LLXSmCzdl4c9m_lNx1WD1aehGE6LOvgfLOKn61W_w_k9CLxjNJeffd92iocw_g-RSHfoLnlBXNFOT3cWxS4klpjbEyuR7gTJ-mHbg; expires=Fri, 21-Nov-2025 12:55:12 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=none'), (b'P3P', b'CP="This is not a P3P policy! See g.co/p3phelp for more info."'), (b'Set-Cookie', b'GSP=LM=1747918512:S=gQLwd7kXZRdDwR5r; expires=Sat, 22-May-2027 12:55:12 GMT; path=/; domain=scholar.google.com; HttpOnly; SameSite=None; Secure'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'gzip'), (b'Server', b'scholar'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-05-22 08:55:12,826 | INFO | httpx | HTTP Request: GET https://scholar.google.com/scholar?q=recent+advancements+in+infectious+disease+molecular+testing+May+after:2025-05-15&hl=en&as_sdt=0&as_vis=1&oi=scholart "HTTP/1.1 200 OK"
+2025-05-22 08:55:12,826 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,855 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109b07380>
+2025-05-22 08:55:12,855 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x109b80680> server_hostname='www.marketsandmarkets.com' timeout=10
+2025-05-22 08:55:12,892 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x109b94710>
+2025-05-22 08:55:12,896 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,898 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:12,898 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2025-05-22 08:55:12,898 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:12,899 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2025-05-22 08:55:12,992 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:12,992 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:12,992 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:12,993 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:12,993 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:13,019 | DEBUG | readability.readability | Branch  7.600 body#readabilityBody>#gs_top link density 0.402 ->  4.544
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch 26.300 html>body#readabilityBody link density 0.402 -> 15.724
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  7.300 form#gs_asd_frm.gs_scl>.gs_asd_tr link density 0.000 ->  7.300
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  1.570 #gs_asd-bdy.gs_md_bdy>form#gs_asd_frm.gs_scl link density 0.000 ->  1.570
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  7.270 .gs_asd_tr>.gs_asd_dd link density 0.000 ->  7.270
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  6.135 form#gs_asd_frm.gs_scl>.gs_asd_tr link density 0.000 ->  6.135
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  8.910 form#gs_asd_frm.gs_scl>.gs_asd_tr link density 0.000 ->  8.910
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  8.280 .gs_asd_tr>.gs_asd_dd link density 0.000 ->  8.280
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  8.915 form#gs_asd_frm.gs_scl>.gs_asd_tr link density 0.000 ->  8.915
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  8.270 .gs_asd_tr>.gs_asd_dd link density 0.000 ->  8.270
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  7.290 form#gs_asd_frm.gs_scl>.gs_asd_tr link density 0.000 ->  7.290
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  9.340 #gs_ab.gs_ab_st>#gs_ab_md link density 0.000 ->  9.340
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch  7.170 #gs_top>#gs_ab.gs_ab_st link density 0.728 ->  1.949
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch 17.710 .gs_r.gs_or.gs_scl>.gs_ri link density 0.286 -> 12.650
+2025-05-22 08:55:13,020 | DEBUG | readability.readability | Branch 11.355 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.324 ->  7.672
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch 10.690 .gs_ri>.gs_a link density 0.092 ->  9.705
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch 12.765 .gs_r.gs_or.gs_scl>.gs_ri link density 0.278 ->  9.217
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  7.460 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.312 ->  5.135
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  9.890 .gs_r.gs_or.gs_scl>.gs_ri link density 0.405 ->  5.889
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  7.445 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.425 ->  4.283
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  8.540 .gs_ri>.gs_a link density 0.235 ->  6.531
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch 11.500 .gs_r.gs_or.gs_scl>.gs_ri link density 0.486 ->  5.909
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  7.365 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.502 ->  3.667
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  8.450 .gs_ri>.gs_a link density 0.132 ->  7.334
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch 12.605 .gs_r.gs_or.gs_scl>.gs_ri link density 0.360 ->  8.064
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  7.940 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.360 ->  5.080
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch 10.510 .gs_ri>.gs_a link density 0.137 ->  9.070
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch 12.615 .gs_r.gs_or.gs_scl>.gs_ri link density 0.377 ->  7.859
+2025-05-22 08:55:13,021 | DEBUG | readability.readability | Branch  7.430 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.398 ->  4.471
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch 15.610 .gs_r.gs_or.gs_scl>.gs_ri link density 0.389 ->  9.538
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch 10.305 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.420 ->  5.981
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch 11.870 .gs_r.gs_or.gs_scl>.gs_ri link density 0.389 ->  7.257
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch  8.435 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.409 ->  4.984
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch 11.630 .gs_ri>.gs_a link density 0.138 -> 10.026
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch 13.165 .gs_r.gs_or.gs_scl>.gs_ri link density 0.362 ->  8.395
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch  7.425 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.380 ->  4.601
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch 15.540 .gs_r.gs_or.gs_scl>.gs_ri link density 0.267 -> 11.390
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Branch 10.270 #gs_res_ccl_mid>.gs_r.gs_or.gs_scl link density 0.301 ->  7.181
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Top 5 : 15.724 html>body#readabilityBody
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Top 5 : 12.650 .gs_r.gs_or.gs_scl>.gs_ri
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Top 5 : 11.390 .gs_r.gs_or.gs_scl>.gs_ri
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Top 5 : 10.026 .gs_ri>.gs_a
+2025-05-22 08:55:13,022 | DEBUG | readability.readability | Top 5 :  9.705 .gs_ri>.gs_a
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  0.000 center>table with weight 0 cause it has too short content length 23 without a single image.
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  0.000 #gs_bdy_sb_in>ul.gs_bdy_sb_sec with weight 0 cause it has too many links 1.000 for its weight 0.
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  0.000 #gs_bdy_sb_in>ul.gs_bdy_sb_sec with weight 0 cause it has too short content length 23 without a single image.
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  0.000 #gs_bdy_sb_in>ul.gs_bdy_sb_sec with weight 0 cause it has too many links 1.000 for its weight 0.
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  0.000 .gs_bdy_sb_sec>ul#gs_res_sb_yyl with weight 0 cause it has too many links 1.000 for its weight 0.
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  0.000 #gs_ftr.gs_md_rmb>#gs_ftr_mnu.gs_md_d.gs_md_ds.gs_ttzi.gs_md_ulr with weight 0 cause it has too short content length 24 without a single image.
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  0.000 #gs_ftr.gs_md_rmb>#gs_ftr_rt with weight 0 cause it has too short content length 16 without a single image.
+2025-05-22 08:55:13,023 | DEBUG | readability.readability | Removed  4.544 #gs_top>#gs_ftr.gs_md_rmb with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  0.000 #gs_nm>#gs_nml with weight 0 cause it has too short content length 11 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  0.000 #gs_res_ccl_bot>#gs_nm with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  0.000 #gs_res_ccl_bot>#gs_n with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  0.000 #gs_res_ccl_bot>.gs_r.gs_alrt_btm.gs_oph.gs_ota with weight 0 cause it has too short content length 12 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  0.000 #gs_res_ccl>#gs_res_ccl_bot with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed 11.390 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.926 for its weight 0.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 254: KL Muldrew - Current opinion in pediatri...
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 17 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  7.181 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 254: KL Muldrew - Current opinion in pediatri...
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Removed  8.395 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.926 for its weight 0.
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Not removing .gs_ri>.gs_a of length 87: HE Alyahyawi - … Sciences. C, Physiology...
+2025-05-22 08:55:13,024 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 272: HE Alyahyawi - … Sciences. C, Physiology...
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 12 without a single image.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  4.601 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 272: HE Alyahyawi - … Sciences. C, Physiology...
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  7.257 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.915 for its weight 0.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  7.257 .gs_ri>.gs_a with weight 0 cause it has too many links 0.247 for its weight 0.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 187: … However, the cost of molecular tests c...
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 14 without a single image.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  4.984 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 187: … However, the cost of molecular tests c...
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  9.538 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.926 for its weight 0.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 261: MI Lefterova, CJ Suarez, N Banaei… - … o...
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 24 without a single image.
+2025-05-22 08:55:13,025 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Removed  5.981 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 261: MI Lefterova, CJ Suarez, N Banaei… - … o...
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Removed  7.859 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.917 for its weight 0.
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Not removing .gs_ri>.gs_a of length 73: STS Hassan - International Journal of Mo...
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 259: STS Hassan - International Journal of Mo...
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 15 without a single image.
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Removed  4.471 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 259: STS Hassan - International Journal of Mo...
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Removed  8.064 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.923 for its weight 0.
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Not removing .gs_ri>.gs_a of length 53: R Patel - Clinical chemistry, 2022 - aca...
+2025-05-22 08:55:13,026 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 241: R Patel - Clinical chemistry, 2022 - aca...
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 241: R Patel - Clinical chemistry, 2022 - aca...
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Removed  5.909 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.923 for its weight 0.
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Removed  5.909 .gs_ri>.gs_a with weight 0 cause it has too many links 0.235 for its weight 0.
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 173: … Data included in this manuscript can b...
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 15 without a single image.
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Removed  3.667 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 173: … Data included in this manuscript can b...
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Removed  5.889 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.917 for its weight 0.
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Removed  5.889 .gs_ri>.gs_a with weight 0 cause it has too many links 0.295 for its weight 0.
+2025-05-22 08:55:13,027 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 189: … , molecular diagnostics tools are crit...
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 14 without a single image.
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed  4.283 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 189: … , molecular diagnostics tools are crit...
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed  9.217 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.927 for its weight 0.
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Not removing .gs_ri>.gs_a of length 76: YW Tang, GW Procop, DH Persing - Clinica...
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 268: YW Tang, GW Procop, DH Persing - Clinica...
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 18 without a single image.
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed  5.135 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 268: YW Tang, GW Procop, DH Persing - Clinica...
+2025-05-22 08:55:13,028 | DEBUG | readability.readability | Removed 12.650 .gs_ri>.gs_fl.gs_flb with weight 0 cause it has too many links 0.926 for its weight 0.
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Not removing .gs_r.gs_or.gs_scl>.gs_ri of length 271: JE Schmitz, CW Stratton, DH Persing… - J...
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Removed  0.000 .gs_ggsd>.gs_or_ggsm with weight 0 cause it has too short content length 22 without a single image.
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Removed  0.000 .gs_ggs.gs_fl>.gs_ggsd with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Removed  7.672 .gs_r.gs_or.gs_scl>.gs_ggs.gs_fl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Not removing #gs_res_ccl_mid>.gs_r.gs_or.gs_scl of length 271: JE Schmitz, CW Stratton, DH Persing… - J...
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Removed  0.000 #gs_bdy_sb_in>.gs_bdy_sb_sec with weight 0 cause it has too short content length 12 without a single image.
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Removed  0.000 #gs_bdy_sb_in>.gs_bdy_sb_sec with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,029 | DEBUG | readability.readability | Removed  0.000 #gs_bdy_sb>#gs_bdy_sb_in with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,030 | DEBUG | readability.readability | Removed  0.000 #gs_bdy>#gs_bdy_sb with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,030 | DEBUG | readability.readability | Removed  0.000 .gs_res_ab_dd_bdy>.gs_res_ab_dd_sec with weight 0 cause it has too many links 1.000 for its weight 0.
+2025-05-22 08:55:13,030 | DEBUG | readability.readability | Removed  0.000 .gs_res_ab_dd_bdy>.gs_res_ab_dd_sec with weight 0 cause it has too short content length 23 without a single image.
+2025-05-22 08:55:13,030 | DEBUG | readability.readability | Removed  0.000 #gs_res_ab_ad-d.gs_md_d.gs_md_ds.gs_md_ulr>.gs_res_ab_dd_bdy with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,030 | DEBUG | readability.readability | Removed  0.000 #gs_res_ab_ad-r.gs_md_r.gs_md_rmb.gs_md_rmbl>#gs_res_ab_ad-d.gs_md_d.gs_md_ds.gs_md_ulr with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,030 | DEBUG | readability.readability | Removed  0.000 #gs_ab_btns>#gs_res_ab_ad-r.gs_md_r.gs_md_rmb.gs_md_rmbl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 .gs_res_ab_dd_bdy>.gs_res_ab_dd_sec with weight 0 cause it has too many links 1.000 for its weight 0.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 .gs_res_ab_dd_bdy>.gs_res_ab_dd_sec with weight 0 cause it has too many links 1.000 for its weight 0.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_res_ab_yy-d.gs_md_d.gs_md_ds.gs_md_ulr>.gs_res_ab_dd_bdy with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_res_ab_yy-r.gs_md_r.gs_md_rmb.gs_md_rmbl>#gs_res_ab_yy-d.gs_md_d.gs_md_ds.gs_md_ulr with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_ab_btns>#gs_res_ab_yy-r.gs_md_r.gs_md_rmb.gs_md_rmbl with weight 0 cause it has too short content length 4 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  1.949 #gs_ab.gs_ab_st>#gs_ab_btns with weight 0 cause it has too short content length 20 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Not removing #gs_ab.gs_ab_st>#gs_ab_md of length 34: About 3,460,000 results (0.17 sec)
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_ab_ttl>.gs_ab_mdw with weight 0 cause it has too short content length 15 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  1.949 #gs_ab.gs_ab_st>#gs_ab_ttl with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Not removing #gs_top>#gs_ab.gs_ab_st of length 34: About 3,460,000 results (0.17 sec)
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_hdr>#gs_hdr_act with weight 0 cause it has too short content length 7 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_hdr_md>#gs_hdr_srch with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_hdr>#gs_hdr_md with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  4.544 #gs_top>#gs_hdr with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 #gs_hdr_drw_in>#gs_hdr_drw_bot.gs_hdr_drw_sec with weight 0 cause it has too short content length 7 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 div{01}>.gs_hdr_drw_sec with weight 0 cause it has too short content length 8 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 div{01}>.gs_hdr_drw_sec with weight 0 cause it has too short content length 15 without a single image.
+2025-05-22 08:55:13,031 | DEBUG | readability.readability | Removed  0.000 div{01}>.gs_hdr_drw_sec with weight 0 cause it has too many links 1.000 for its weight 0.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 div{01}>.gs_hdr_drw_sec with weight 0 cause it has too short content length 24 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_hdr_drw_in>div{01} with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_hdr_drw_in>#gs_hdr_drw_top with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_hdr_drw.gs_md_ulr.gs_md_ds>#gs_hdr_drw_in with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  4.544 #gs_top>#gs_hdr_drw.gs_md_ulr.gs_md_ds with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_md_albl-d.gs_md_d.gs_md_ds.gs_ttzi>.gs_md_ftr with weight 0 cause it has too short content length 18 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_md_albl-d.gs_md_d.gs_md_ds.gs_ttzi>.gs_md_hdr with weight 0 cause it has too short content length 19 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 .gs_md_wnw.gs_md_ds.gs_md_wmw>#gs_md_albl-d.gs_md_d.gs_md_ds.gs_ttzi with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  4.544 #gs_top>.gs_md_wnw.gs_md_ds.gs_md_wmw with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_asd.gs_md_d.gs_md_ds.gs_ttzi>#gs_asd-bdy.gs_md_bdy with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_asd.gs_md_d.gs_md_ds.gs_ttzi>.gs_md_hdr with weight 0 cause it has too short content length 15 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 .gs_md_wnw.gs_md_ds.gs_md_wmw>#gs_asd.gs_md_d.gs_md_ds.gs_ttzi with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  4.544 #gs_top>.gs_md_wnw.gs_md_ds.gs_md_wmw with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_cit.gs_md_d.gs_md_ds.gs_ttzi>#gs_cit-bdy.gs_md_bdy with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 #gs_cit.gs_md_d.gs_md_ds.gs_ttzi>.gs_md_hdr with weight 0 cause it has too short content length 4 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  0.000 .gs_md_wnw.gs_md_ds.gs_md_wmw>#gs_cit.gs_md_d.gs_md_ds.gs_ttzi with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,032 | DEBUG | readability.readability | Removed  4.544 #gs_top>.gs_md_wnw.gs_md_ds.gs_md_wmw with weight 0 cause it has too short content length 0 without a single image.
+2025-05-22 08:55:13,035 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/html; Charset=ISO-8859-1'), (b'Content-Length', b'27534'), (b'Connection', b'keep-alive'), (b'Date', b'Thu, 22 May 2025 12:55:13 GMT'), (b'Set-Cookie', b'sess_map=ebestvvefazsxfzrzdxutqfyzxdsbzqqsvftudcbxtsytarvcdyqtsuwabfuedvvwqyzatxeurvcafbrdfwwxbrszefcfuwrcbufftddyyybtswytdsfxfyuuasubrvbzzdauqbyqubrsyyayrxvreeecqxdcwabtsxxvzuaazaxdesq; Path=/; HttpOnly; Secure;'), (b'Cache-Control', b'private'), (b'Content-Encoding', b'gzip'), (b'Vary', b'Accept-Encoding'), (b'X-Powered-By', b'ASP.NET'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'Set-Cookie', b'ASPSESSIONIDASBRCACT=HOIOEENCNKGNAFPONHANEFPP; path=/'), (b'X-MP-XAE2', b'4392'), (b'AppTrana-Request-ID', b'eb869323db16522eb9f01676b60ba2f4'), (b'X-Cache', b'MISS,v17nyc1'), (b'Age', b'0'), (b'Accept-Ranges', b'bytes'), (b'X-TATA-Request-ID', b'7fe3434c6a64f08d22344c3a604b156b'), (b'Server', b'v/6.8.6/6.5.31/v18nyc1-www'), (b'X-Version', b'1'), (b'X-TATA-Request-ID', b'7fe3434c6a64f08d22344c3a604b156b')])
+2025-05-22 08:55:13,035 | INFO | httpx | HTTP Request: GET https://www.marketsandmarkets.com/blog/HC/molecular-infectious-disease-testing "HTTP/1.1 200 OK"
+2025-05-22 08:55:13,035 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:13,035 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:13,035 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:13,035 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:13,037 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:13,037 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:13,054 | DEBUG | readability.readability | Removing unlikely candidate - .main-wrapper>header.header-area.header-height-3
+2025-05-22 08:55:13,054 | DEBUG | readability.readability | Removing unlikely candidate - header.header-area.header-height-3>.header-top.header-top-ptb-1.border-bottom-1.d-none.d-lg-block.graybg
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - .container-fluid>.header-info.header-info-right
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li#myDropdown.nav-item.dropdown.tl>ul.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.submenu.sub.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li>button.sidebar-toggle
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li>aside.sidebar
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - aside.sidebar>.sidebar-header
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,055 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - li.nav-item>ul.submenu.dropdown-menu
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - header.header-area.header-height-3>.header-bottom.sticky-bar.sticky-white-bg
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - .container-fluid-custom>.header-wrap.header-space-between.position-relative
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - li.position-static>ul.mega-menu
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - li.position-static>ul.mega-menu
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,056 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-25
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - a>span.menu-title.industries_card_title
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - li.position-static>ul.mega-menu
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-50
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - li.sub-mega-menu.sub-mega-menu-width-50>a.menu-title.insight_head
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - ul.mega-menu>li.sub-mega-menu.sub-mega-menu-width-50
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - li.sub-mega-menu.sub-mega-menu-width-50>a.menu-title.insight_head
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .header-wrap.header-space-between.position-relative>.header-action-right
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .header-action-right>.header-action-icon.search_icon
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .header-action-right>.header-action
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .header-action>.header-action-icon.d-block.d-lg-none
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .header-action-right>.header-action-icon.login_head
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .main-wrapper>#search_popup.modal.fade
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .modal-content.pop_up_back>.modal-header.pop_header
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .row>.header-hero
+2025-05-22 08:55:13,057 | DEBUG | readability.readability | Removing unlikely candidate - .main-wrapper>footer.footer-area.bg-gray-2.pt-75
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .custom-container>.footer-top.pb-30
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .col-width-31.custom-common-column>.footer-widget.footer-about-2.mb-40
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.footer-about-2.mb-40>.footer-logo.logo-width-1
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.footer-about-2.mb-40>.footer-contact-info
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.footer-about-2.mb-40>.footer-social-icon.tooltip-style-4
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - a.share_icon.share_icon_social.share_icon_mail>i.fa-twitter-new.search_gradient
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - a.share_icon.share_icon_social.share_icon_mail>i.fas.fa-rss.search_gradient
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .col-width-22.custom-common-column>.footer-widget.mb-40
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.mb-40>h3.footer-title
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.mb-40>.footer-info-list
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .col-width-25.custom-common-column>.footer-widget.mb-40
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.mb-40>h3.footer-title
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.mb-40>.footer-info-list
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .col-width-22.custom-common-column>.footer-widget.mb-40
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.mb-40>h3.footer-title
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .footer-widget.mb-40>.footer-info-list
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .main-wrapper>.footer_middle
+2025-05-22 08:55:13,058 | DEBUG | readability.readability | Removing unlikely candidate - .main-wrapper>.footer-bottom.border-top-1
+2025-05-22 08:55:13,060 | DEBUG | readability.readability | Branch 142.990 .row>.col-12.col-md-8 link density 0.042 -> 136.925
+2025-05-22 08:55:13,061 | DEBUG | readability.readability | Branch 73.995 .container.blogWrap>.row link density 0.098 -> 66.764
+2025-05-22 08:55:13,061 | DEBUG | readability.readability | Branch  8.830 .col-12.col-md-4>.shadow.rounded.p-3.my-4 link density 0.000 ->  8.830
+2025-05-22 08:55:13,061 | DEBUG | readability.readability | Branch  6.915 .row>.col-12.col-md-4 link density 0.574 ->  2.947
+2025-05-22 08:55:13,061 | DEBUG | readability.readability | Top 5 : 136.925 .row>.col-12.col-md-8
+2025-05-22 08:55:13,061 | DEBUG | readability.readability | Top 5 : 66.764 .container.blogWrap>.row
+2025-05-22 08:55:13,061 | DEBUG | readability.readability | Top 5 :  8.830 .col-12.col-md-4>.shadow.rounded.p-3.my-4
+2025-05-22 08:55:13,061 | DEBUG | readability.readability | Top 5 :  2.947 .row>.col-12.col-md-4
+2025-05-22 08:55:13,822 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/html; charset=utf-8'), (b'Last-Modified', b'Thu, 22 May 2025 12:55:12 GMT'), (b'X-Content-Type-Options', b'nosniff'), (b'X-FRAME-OPTIONS', b'SAMEORIGIN'), (b'Version', b'cloud'), (b'data-source', b'OS'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Content-Encoding', b'gzip'), (b'Content-Length', b'12306'), (b'Cache-Control', b'public, max-age=60'), (b'Date', b'Thu, 22 May 2025 12:55:13 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'ASP.NET_SessionId=hgmis1kwhid10hz22f5yxi0r; path=/; secure; HttpOnly; SameSite=Lax'), (b'Set-Cookie', b'GNWTracker=28fa5a76-2858-42c3-a15e-ef2d5c311586; expires=Wed, 21-May-2025 12:55:13 GMT; path=/; secure'), (b'Set-Cookie', b'__RequestVerificationToken=bJXcruPVSZPSwPQBGBLqGJZzDCbs_a6L8R-vEOwQ_VGoyJ2UmdJochsf6X0ptpQGqme2HbX_6MN-jgeK780zKLubmqY1; path=/; secure; HttpOnly')])
+2025-05-22 08:55:13,824 | INFO | httpx | HTTP Request: GET https://www.globenewswire.com/news-release/2025/05/20/3084583/0/en/North-America-Infectious-Disease-Rapid-Diagnostics-Market-Report-2025-2035-Featuring-Abbott-F-Hoffmann-La-Roche-Danaher-DiaSorin-Hologic-BGI-Quidel-Cellex-bioMerieux-Thermo-Fisher-.html "HTTP/1.1 200 OK"
+2025-05-22 08:55:13,824 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:13,825 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:13,825 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:13,826 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:13,827 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:13,827 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:13,842 | DEBUG | readability.readability | Removing unlikely candidate - div{01}>#pnr-global-site-header-section
+2025-05-22 08:55:13,842 | DEBUG | readability.readability | Removing unlikely candidate - .main-scroll-container>#pnr-global-social-media-sidebar-section
+2025-05-22 08:55:13,843 | DEBUG | readability.readability | Removing unlikely candidate - div{01}>#pnr-global-site-footer-section.home-page-footer
+2025-05-22 08:55:13,850 | DEBUG | readability.readability | Branch 33.730 .main-container-content>.main-header-container link density 0.024 -> 32.926
+2025-05-22 08:55:13,852 | DEBUG | readability.readability | Branch 31.865 #container-article.main-container.container-overwrite.p-0.d-flex>.main-container-content link density 0.067 -> 29.727
+2025-05-22 08:55:13,853 | DEBUG | readability.readability | Branch 206.730 .main-scroll-container>#main-body-container.main-body-container.article-body link density 0.022 -> 202.135
+2025-05-22 08:55:13,855 | DEBUG | readability.readability | Branch 80.865 .main-container-content>.main-scroll-container link density 0.070 -> 75.179
+2025-05-22 08:55:13,855 | DEBUG | readability.readability | Branch 11.960 .featuredNewsLink>.featuredNewsTxt link density 0.044 -> 11.437
+2025-05-22 08:55:13,855 | DEBUG | readability.readability | Branch  8.480 .col-lg-8>.featuredNewsLink link density 0.386 ->  5.210
+2025-05-22 08:55:13,855 | DEBUG | readability.readability | Branch 11.950 .featuredNewsLink>.featuredNewsTxt link density 0.044 -> 11.425
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Branch  8.475 .col-lg-8>.featuredNewsLink link density 0.409 ->  5.011
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Branch  5.210 #article-contact-section.main-tags-attachments-container>label link density 0.000 ->  5.210
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Branch  7.605 .main-scroll-container>#article-contact-section.main-tags-attachments-container link density 0.145 ->  6.501
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Top 5 : 202.135 .main-scroll-container>#main-body-container.main-body-container.article-body
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Top 5 : 75.179 .main-container-content>.main-scroll-container
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Top 5 : 32.926 .main-container-content>.main-header-container
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Top 5 : 29.727 #container-article.main-container.container-overwrite.p-0.d-flex>.main-container-content
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Top 5 : 11.437 .featuredNewsLink>.featuredNewsTxt
+2025-05-22 08:55:13,856 | DEBUG | readability.readability | Not removing #main-body-container.main-body-container.article-body>ul of length 166: Abbott LaboratoriesF. Hoffmann-La Roche ...
+2025-05-22 08:55:14,044 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/html; charset=utf-8'), (b'Last-Modified', b'Thu, 22 May 2025 12:55:12 GMT'), (b'X-Content-Type-Options', b'nosniff'), (b'X-FRAME-OPTIONS', b'SAMEORIGIN'), (b'Version', b'cloud'), (b'data-source', b'OS'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Content-Encoding', b'gzip'), (b'Content-Length', b'12537'), (b'Cache-Control', b'public, max-age=59'), (b'Date', b'Thu, 22 May 2025 12:55:14 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'ASP.NET_SessionId=2ksmnjnamthgwkrqloqtf3sv; path=/; secure; HttpOnly; SameSite=Lax'), (b'Set-Cookie', b'GNWTracker=d36db46d-004c-4d68-aba9-e3fb39d4403e; expires=Wed, 21-May-2025 12:55:13 GMT; path=/; secure'), (b'Set-Cookie', b'__RequestVerificationToken=5ZJDPO7IFCasCIwPhKgn4DOg6aHR2kxQLf44O5FLWnwY5Xd_rVa-Wj-U_bebPHh5cmi1WivY7P_Zb3rmwWdj9WUSbwA1; path=/; secure; HttpOnly')])
+2025-05-22 08:55:14,046 | INFO | httpx | HTTP Request: GET https://www.globenewswire.com/news-release/2025/05/20/3084995/0/en/OTC-DTC-Infectious-Disease-Diagnostics-Market-Strategies-and-Trends-Research-Report-2025.html "HTTP/1.1 200 OK"
+2025-05-22 08:55:14,046 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:14,048 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:14,048 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:14,048 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:14,049 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:14,049 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:14,067 | DEBUG | readability.readability | Removing unlikely candidate - div{01}>#pnr-global-site-header-section
+2025-05-22 08:55:14,067 | DEBUG | readability.readability | Removing unlikely candidate - .main-scroll-container>#pnr-global-social-media-sidebar-section
+2025-05-22 08:55:14,068 | DEBUG | readability.readability | Removing unlikely candidate - div{01}>#pnr-global-site-footer-section.home-page-footer
+2025-05-22 08:55:14,073 | DEBUG | readability.readability | Branch 33.730 .main-container-content>.main-header-container link density 0.123 -> 29.566
+2025-05-22 08:55:14,075 | DEBUG | readability.readability | Branch 31.865 #container-article.main-container.container-overwrite.p-0.d-flex>.main-container-content link density 0.092 -> 28.931
+2025-05-22 08:55:14,076 | DEBUG | readability.readability | Branch 153.530 .main-scroll-container>#main-body-container.main-body-container.article-body link density 0.027 -> 149.429
+2025-05-22 08:55:14,077 | DEBUG | readability.readability | Branch 54.265 .main-container-content>.main-scroll-container link density 0.092 -> 49.295
+2025-05-22 08:55:14,077 | DEBUG | readability.readability | Branch 11.960 .featuredNewsLink>.featuredNewsTxt link density 0.044 -> 11.437
+2025-05-22 08:55:14,078 | DEBUG | readability.readability | Branch  8.480 .col-lg-8>.featuredNewsLink link density 0.386 ->  5.210
+2025-05-22 08:55:14,078 | DEBUG | readability.readability | Branch 11.950 .featuredNewsLink>.featuredNewsTxt link density 0.044 -> 11.425
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Branch  8.475 .col-lg-8>.featuredNewsLink link density 0.409 ->  5.011
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Branch  5.210 #article-contact-section.main-tags-attachments-container>label link density 0.000 ->  5.210
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Branch  7.605 .main-scroll-container>#article-contact-section.main-tags-attachments-container link density 0.145 ->  6.501
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Top 5 : 149.429 .main-scroll-container>#main-body-container.main-body-container.article-body
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Top 5 : 49.295 .main-container-content>.main-scroll-container
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Top 5 : 29.566 .main-container-content>.main-header-container
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Top 5 : 28.931 #container-article.main-container.container-overwrite.p-0.d-flex>.main-container-content
+2025-05-22 08:55:14,079 | DEBUG | readability.readability | Top 5 : 11.437 .featuredNewsLink>.featuredNewsTxt
+2025-05-22 08:55:16,076 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:55:16 GMT'), (b'Content-Type', b'text/html'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'943c77716c6d1aeb-ORD'), (b'CF-Cache-Status', b'MISS'), (b'Access-Control-Allow-Origin', b'diagnostics.roche.com'), (b'Cache-Control', b'public, max-age=300'), (b'Expires', b'Thu, 22 May 2025 13:00:16 GMT'), (b'Last-Modified', b'Thu, 22 May 2025 12:55:16 GMT'), (b'Set-Cookie', b'geolocation-cookie=US; Path=/; Secure'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubdomains;'), (b'Vary', b'Accept-Encoding,User-Agent'), (b'Roche-Geo-Location', b'US'), (b'X-Content-Type-Options', b'nosniff'), (b'X-Dispatcher', b'dispatcher1euwest1'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Vhost', b'diagnosticsroche'), (b'X-XSS-Protection', b'1; mode=block'), (b'content-security-policy', b"default-src 'self' *.roche.com *.roche.net *.gene.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.roche.com *.roche.net *.sandbox.my.site.com www.googleadservices.com cdn.mouseflow.com googleads.g.doubleclick.net www.youtube.com www.clarity.ms dianews.roche.com cdn.c360a.salesforce.com *.gstatic.com platform.twitter.com static.cloudflareinsights.com roche.piwik.pro widget.usersnap.com twitter.com t.contentsquare.net cdnjs.cloudflare.com cdn.jsdelivr.net www.googletagmanager.com www.google-analytics.com www.google.com munchkin.marketo.net *.marketo.com snippet.ramblechat.com ajax.googleapis.com dev.virtualearth.net app-sji.marketo.com maps.googleapis.com assets.adobedtm.com assets.adoberesources.net cdn.cookielaw.org static.ads-twitter.com connect.facebook.net snap.licdn.com sc.lfeeder.com cdn.leadinfo.net platform-api.sharethis.com buttons-config.sharethis.com www.gstatic.com https://t.sharethis.com https://*.bing.com player.vimeo.com znccssodhgpbfve5g-rochediacx.siteintercept.qualtrics.com siteintercept.qualtrics.com *.qualtrics.com rexis--apollo.sandbox.my.site.com https://rexis--selma.sandbox.my.site.com znehyzqu4e5xaovmd-rochediagnostics1.siteintercept.qualtrics.com roche.containers.piwik.pro bot.eu-rochebot.intersofthub.com; style-src * 'self' 'unsafe-inline'; img-src * 'self' data:; font-src * 'self' data:; connect-src * 'self' https://rexis--selma.sandbox.my.site.com; media-src * 'self' data:; object-src 'self'; child-src 'self' *.roche.com *.roche.net www.googletagmanager.com; frame-src 'self' *.roche.com *.roche.net bot.eu-rochebot.intersofthub.com creators.spotify.com www.brighttalk.com podcasters.spotify.com anchor.fm fhoffmann-larocheag.demdex.net sites.google.com *.googleapis.com *.marketo.com *.twitter.com *.google.com roche.scene7.com *.youtube.com *.googletagmanager.com sftp.rch.cm platform.twitter.com app-sji.marketo.com cdn.walkme.com/* heyzine.com app.smartsheet.com roche.demdex.net dayintegrationinternal.demdex.net td.doubleclick.net https://t.sharethis.com https://r.bing.com/* https://www.bing.com/* v.calameo.com player.vimeo.com docs.google.com accounts.google.com https://docs.google.com/; worker-src 'self' *.roche.com *.roche.net blob:; frame-ancestors 'self' *.roche.com *.roche.net sites.google.com https://docs.google.com/ docs.google.com accounts.google.com *.cloudflareworkers.com; form-action 'self' *.roche.com *.roche.net; base-uri 'self' *.roche.com *.roche.net *.gene.com *.secure.roche.com assets.adobedtm.com; report-uri https://bxu7fu4kkj.execute-api.eu-west-1.amazonaws.com/TestStage/CSPReports;"), (b'Set-Cookie', b'__cfruid=f92d072099936d8f6b3e318961e48fa18f7a7316-1747918516; path=/; domain=.diagnostics.roche.com; HttpOnly; Secure; SameSite=None'), (b'Set-Cookie', b'_cfuvid=aquPmXnwLR0eUQgzoE0D62XgcLWdcSphoRk7s23CyQk-1747918516125-0.0.1.1-604800000; path=/; domain=.diagnostics.roche.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-05-22 08:55:16,078 | INFO | httpx | HTTP Request: GET https://diagnostics.roche.com/us/en/products/product-category/brand/cobas.html "HTTP/1.1 200 OK"
+2025-05-22 08:55:16,079 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2025-05-22 08:55:16,081 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:16,081 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:16,082 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:16,083 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:16,083 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:16,125 | DEBUG | readability.readability | Removing unlikely candidate - div{01}>header.roche-header.js-header-wrapper
+2025-05-22 08:55:16,125 | DEBUG | readability.readability | Removing unlikely candidate - header.roche-header.js-header-wrapper>.c-inner-header.container-fluid
+2025-05-22 08:55:16,125 | DEBUG | readability.readability | Removing unlikely candidate - .c-inner-header.container-fluid>section.header-spacing-top
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - .secondary-nav-left>a.secondary-nav-left__link.secondary-nav-left__link--logo.c-header__link--logo
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - .secondary-nav-right>a.persona-link.js-header-persona-link.hidden.yesyes
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - .secondary-nav-right>button.secondary-nav-right__hamburgermenu.js-mobile-hamburgerMenu
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - button.secondary-nav-right__hamburgermenu.js-mobile-hamburgerMenu>i.icon-menu
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - aside.hidden.js-liipbox-navigation>.hamburger-nav.hb-navigation-menu.x-liipbox.js-liipbox-content
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - .row.clearfix>.hamburger-nav-header
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - li.hb-dropdown>ul.hb-sub-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - li.hb-dropdown.hb-inner-dropdown>ul.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.subsection-4.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,126 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.subsection-4.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.subsection-4.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.subsection-4.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li.hb-dropdown.hb-inner-dropdown>ul.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.subsection-4.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.subsection-4.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li>ul.subsection-4.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li.hb-dropdown.hb-inner-dropdown>ul.hb-inner-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,127 | DEBUG | readability.readability | Removing unlikely candidate - li.hb-dropdown>ul.hb-sub-section.hb-submenu.js-submenu
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - aside.hidden.js-search-bar-navigation>#header-search-bar.c-header-search-bar.x-liipbox.js-liipbox-content
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - #header-search-bar.c-header-search-bar.x-liipbox.js-liipbox-content>.c-header-search-overlay.js-header-search-overlay.col-xs-12
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - .c-header-search-overlay.js-header-search-overlay.col-xs-12>.roche-header-search-box
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - fieldset>i#header-search.header-search-button.icon-whiteSearch
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - fieldset>input#header-search-input.roche-header-search-input.js-header-search-input.js-overlay-hs-input
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - .c-header-search-overlay.js-header-search-overlay.col-xs-12>.c-header-search-result.header-search-result-container.js-result.result-hide
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - .c-header-search-result.header-search-result-container.js-result.result-hide>.header-search-result
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - .c-header-search-overlay.js-header-search-overlay.col-xs-12>.c-header-search-allresults.js-header-search-allresults.clearfix.js-result.result-hide
+2025-05-22 08:55:16,128 | DEBUG | readability.readability | Removing unlikely candidate - #header-search-bar.c-header-search-bar.x-liipbox.js-liipbox-content>.c-header-search-backdrop.js-hs-backdrop
+2025-05-22 08:55:16,131 | DEBUG | readability.readability | Removing unlikely candidate - .swiper-controls.js-swiper-controls.hidden>.swiper-pagination
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - .swiper-controls.js-swiper-controls.hidden>.swiper-pagination
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - .swiper-controls.js-swiper-controls.hidden>.swiper-pagination
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - div{02}>.c-back_to_top-footer-wrapper
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - .c-back_to_top-footer-wrapper>footer.c-footer.js-footer
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - footer.c-footer.js-footer>.c-footer__wrapper.container
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - .c-footer__wrapper.container>.ext-footer.clearfix
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,132 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-4.col-lg-4.col-md-5.col-sm-12.col-xs-12.social-icons-wrapper>#footer-social-icons.social-icons
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - #footer-social-icons.social-icons>.c-footer-social-icons--circle
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - #footer-social-icons.social-icons>.c-footer-social-icons--circle
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - #footer-social-icons.social-icons>.c-footer-social-icons--circle
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - a.social-link.x-sub-hover>i.x-twitter-icon.social-icon
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - #footer-social-icons.social-icons>.c-footer-social-icons--circle
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - #footer-social-icons.social-icons>.c-footer-social-icons--circle
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,133 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - li>a#ot-sdk-btn.c-footer__link.js-cookie-preference.ot-sdk-show-settings
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - a#ot-sdk-btn.c-footer__link.js-cookie-preference.ot-sdk-show-settings>span.c-footer__text
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - li>a.c-footer__link
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - a.c-footer__link>span.c-footer__text
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - ul>li.c-footer__link.region
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - a.js-link-country>span.c-footer__text.country-name
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - a.js-link-country>span.c-footer__text.language
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - .copyright-ctr>.c-footer__copyright.c-footer__text
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - .c-footer__copyright.c-footer__text>span.c-footer__timestamp.c-footer__text.js-timestamp
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - .col-xl-8.col-lg-8.col-md-7.col-sm-12.col-xs-12>.c-footer__legal-content.c-footer__text-disclaimer
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - .c-back_to_top-footer-wrapper>#myModalPopUp.x-modal-up.fade.modal.in
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - .modal-content>.modal-content__header.modal-header
+2025-05-22 08:55:16,134 | DEBUG | readability.readability | Removing unlikely candidate - .modal-content>.modal-content__footer.modal-footer
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  9.980 .c-login-notification__left-col>.left-wrapper link density 0.000 ->  9.980
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  7.490 .cookie-block-height.clearfix>.c-login-notification__left-col link density 0.000 ->  7.490
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  7.340 .c-login-notification__left-col>.left-wrapper link density 0.000 ->  7.340
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  6.170 .cookie-block-height.clearfix>.c-login-notification__left-col link density 0.000 ->  6.170
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  7.290 .c-persona__wrapper.js-persona-navigation>.js-persona-wrapper link density 0.167 ->  6.075
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  7.350 .sn-persona-container.js-c-persona-picker.hide>.c-persona__wrapper.js-persona-navigation link density 0.284 ->  5.262
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  7.410 .c-persona__wrapper.js-persona-navigation>.js-persona-listwrapper.hide link density 0.318 ->  5.052
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch  8.810 .c-herobanner__text-container.col-xs-12.col-sm-10.col-md-10.col-lg-8>.c-herobanner__description link density 0.000 ->  8.810
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch 31.905 .row>.c-herobanner__text-container.col-xs-12.col-sm-10.col-md-10.col-lg-8 link density 0.157 -> 26.897
+2025-05-22 08:55:16,141 | DEBUG | readability.readability | Branch 57.340 .x-outer-margins.x-rte-wrapper.title.support-alignment.x-component-spacing.x-component-spacing-top>.x-text link density 0.000 -> 57.340
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 18.670 .clearfix>.x-outer-margins.x-rte-wrapper.title.support-alignment.x-component-spacing.x-component-spacing-top link density 0.000 -> 18.670
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 12.100 .col-sm-offset-1.col-md-offset-1.col-lg-offset-1>.c-marketingtile__description link density 0.000 -> 12.100
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  8.550 .c-marketingtile__col-left.js-leftCol-mTile.col-xs-12.col-sm-6.col-md-6.col-lg-6>.col-sm-offset-1.col-md-offset-1.col-lg-offset-1 link density 0.068 ->  7.969
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 13.950 .offset-right>.c-marketingtile__description link density 0.000 -> 13.950
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  9.475 .c-marketingtile__col-left.js-leftCol-mTile.col-xs-12.col-sm-6.col-md-6.col-lg-6>.offset-right link density 0.051 ->  8.995
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 11.910 .col-sm-offset-1.col-md-offset-1.col-lg-offset-1>.c-marketingtile__description link density 0.000 -> 11.910
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  8.455 .c-marketingtile__col-left.js-leftCol-mTile.col-xs-12.col-sm-6.col-md-6.col-lg-6>.col-sm-offset-1.col-md-offset-1.col-lg-offset-1 link density 0.050 ->  8.032
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  7.320 .c-product-portfolio__asset>.chips-container link density 0.000 ->  7.320
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  6.160 a.c-product-portfolio__link.x-sub-hover.federatedSearch>.c-product-portfolio__asset link density 0.000 ->  6.160
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 35.840 .c-product-portfolio__content>.product-portfolio-tileinner-content link density 0.000 -> 35.840
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 32.920 a.c-product-portfolio__link.x-sub-hover.federatedSearch>.c-product-portfolio__content link density 0.000 -> 32.920
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  7.320 .c-product-portfolio__asset>.chips-container link density 0.000 ->  7.320
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  6.160 a.c-product-portfolio__link.x-sub-hover.federatedSearch>.c-product-portfolio__asset link density 0.000 ->  6.160
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 35.210 .c-product-portfolio__content>.product-portfolio-tileinner-content link density 0.000 -> 35.210
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 32.605 a.c-product-portfolio__link.x-sub-hover.federatedSearch>.c-product-portfolio__content link density 0.000 -> 32.605
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  7.320 .c-product-portfolio__asset>.chips-container link density 0.000 ->  7.320
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch  6.160 a.c-product-portfolio__link.x-sub-hover.federatedSearch>.c-product-portfolio__asset link density 0.000 ->  6.160
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 34.610 .c-product-portfolio__content>.product-portfolio-tileinner-content link density 0.000 -> 34.610
+2025-05-22 08:55:16,142 | DEBUG | readability.readability | Branch 32.305 a.c-product-portfolio__link.x-sub-hover.federatedSearch>.c-product-portfolio__content link density 0.000 -> 32.305
+2025-05-22 08:55:16,143 | DEBUG | readability.readability | Top 5 : 57.340 .x-outer-margins.x-rte-wrapper.title.support-alignment.x-component-spacing.x-component-spacing-top>.x-text
+2025-05-22 08:55:16,143 | DEBUG | readability.readability | Top 5 : 35.840 .c-product-portfolio__content>.product-portfolio-tileinner-content
+2025-05-22 08:55:16,143 | DEBUG | readability.readability | Top 5 : 35.210 .c-product-portfolio__content>.product-portfolio-tileinner-content
+2025-05-22 08:55:16,143 | DEBUG | readability.readability | Top 5 : 34.610 .c-product-portfolio__content>.product-portfolio-tileinner-content
+2025-05-22 08:55:16,143 | DEBUG | readability.readability | Top 5 : 32.920 a.c-product-portfolio__link.x-sub-hover.federatedSearch>.c-product-portfolio__content
+2025-05-22 08:55:16,144 | DEBUG | openai._base_client | Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-2365df97-ea62-48fd-9c7d-e6b724785979', 'json_data': {'messages': [{'role': 'user', 'content': 'You are an expert business analyst. Your job is to read recent news articles and summarize the most important business updates, financial results, and product developments in 300 words or less. Focus on major takeaways, trends, or corporate moves.\n\nHere are today\'s articles:\n\nTitle: North America Infectious Disease Rapid Diagnostics Market\nURL: https://www.globenewswire.com/news-release/2025/05/20/3084583/0/en/North-America-Infectious-Disease-Rapid-Diagnostics-Market-Report-2025-2035-Featuring-Abbott-F-Hoffmann-La-Roche-Danaher-DiaSorin-Hologic-BGI-Quidel-Cellex-bioMerieux-Thermo-Fisher-.html\nExcerpt:\nDublin, May  20, 2025  (GLOBE NEWSWIRE) -- The "North America Infectious Disease Rapid Diagnostics Market - A Regional Analysis: Focus on Product, Technology, Application, and Country-Level Analysis - Analysis and Forecast, 2025-2035" report has been added to  ResearchAndMarkets.com\'s offering.Infectious Disease Rapid Diagnostics are tests designed to quickly detect and identify infectious agents such as bacteria, viruses, or fungi, enabling fast treatment decisions. These tests provide results in minutes to a few hours, crucial for early detection and effective management of infections. They include molecular diagnostics, antigen tests, and serological assays for diseases such as influenza, COVID-19, and STIs.The increasing incidence of infectious diseases such as influenza, sexually transmitted infections (STIs), respiratory infections, and hospital-acquired infections (HAIs) is a major driver of the North American rapid diagnostics market. For instance, the CDC reported in 2023 that\n\n\nTitle: \nURL: https://www.genomeweb.com/molecular-diagnostics\nExcerpt:\n\n\n\nTitle: OTC/DTC Infectious Disease Diagnostics Market Strategies\nURL: https://www.globenewswire.com/news-release/2025/05/20/3084995/0/en/OTC-DTC-Infectious-Disease-Diagnostics-Market-Strategies-and-Trends-Research-Report-2025.html\nExcerpt:\nDublin, May  20, 2025  (GLOBE NEWSWIRE) -- The "OTC/DTC Infectious Disease Diagnostics Strategies and Trends for Over the Counter and Direct To Consumer: Forecasts by Application by Channel and by Country with Market Analysis and Executive Guides" report has been added to  ResearchAndMarkets.com\'s offering. The sleeping giant of Over the Counter and Direct to Consumer Diagnostics is set to create a broad new diagnostic industry. New technologies create rapid test solutions for the home market. Genetic testing led the way. Now Infectious disease testing is moving directly to the consumer. New sampling technology, rapid and multiplex tests have changed the picture of how and where testing is done. And the pandemic has proven the need for self-testing. This report explores the DTC outlook. Find out where the action is and learn about the players. Exciting technical developments hold the promise of a dynamic, growing and evolving world market that holds the promise of diagnostics taking th\n\n\nTitle: The lab of the future begins with cobas® integrated solutions\nURL: https://diagnostics.roche.com/us/en/products/product-category/brand/cobas.html\nExcerpt:\nAs creators of in-vitro diagnostic solutions, we offer innovative products that span a broad range of technologies and application areas such as clinical chemistry, immunochemistry, polymerase chain reaction (PCR), and our latest addition mass spectrometry.* With unique medical, pharmaceutical, and scientific expertise, we deliver meaningful, medically relevant answers to improve people’s lives since 1978 with the launch of cobas® Bio.\nBy redefining the possible, we prioritize patient needs and unmet medical requirements. Our close collaboration with customers ensures that our innovations address critical needs. We meticulously validate solutions with real clinical evidence, developing diagnostic solutions that seamlessly integrate innovative engineering and information technology, shaping the laboratories of the future and beyond.\nOur mission with the cobas® integrated portfolio is to make diagnostics a powerful connector between patient needs and sustainable healthcare.\n\xa0\n*The cobas®\n\n\nTitle: OncoSwab Announces Collaboration with Mayo Clinic to Advance Non-Invasive Cancer Diagnostics\nURL: https://www.prnewswire.com/news-releases/oncoswab-announces-collaboration-with-mayo-clinic-to-advance-non-invasive-cancer-diagnostics-302462713.html\nExcerpt:\nSAN FRANCISCO, May 22, 2025 /PRNewswire/ -- OncoSwab, a biotechnology company focused on early detection of cancer through non-invasive molecular testing, today announced it has entered into a collaboration agreement with Mayo Clinic. The agreement provides OncoSwab with access to clinical research expertise and know-how to support the development of its nasal swab-based diagnostic platform.\nThe collaboration centers on enabling clinical validation of OncoSwab\'s lead diagnostic test, which utilizes genomic biomarkers from nasal fluid to detect lung cancer and expanding the technology into additional indications.\n"Our goal is to deliver accurate, accessible diagnostics that empower clinicians to detect cancer earlier and with greater ease" said Andrea Stephany Díaz, co-founder and CEO of OncoSwab.\nMayo Clinic has a financial interest in the technology referenced in this press release. Mayo Clinic will use any revenue it receives to support its not-for-profit mission in patient care, edu\n\n\nTitle: Strategic CDx Partnership with Bristol Myers Squibb\nURL: https://www.leicabiosystems.com/us/news/leica-biosystems-and-bristol-myers-squibb-announce-strategic-partnership-to-drive/\nExcerpt:\nNewcastle upon Tyne, United Kingdom, May 22, 2025 -Leica Biosystems, a global leader in anatomic pathology solutions, and Bristol Myers Squibb, a leading global biopharmaceutical company, have announced a strategic partnership to co-develop and commercialize companion diagnostic (CDx) tests that support targeted cancer therapies. This partnership expands a long-standing relationship and reflects both organizations’ shared commitment to advancing precision medicine and improving patient outcomes.\nThe partnership will combine Leica Biosystems’ proven expertise in automated, tissue-based diagnostics with Bristol Myers Squibb’s innovative therapeutic portfolio. Together, the companies aim to accelerate the development of high-quality CDx solutions that enable the selection of patients most likely to benefit from specific oncology therapies.\nAs oncology moves toward increasingly personalized treatment approaches, the demand for robust diagnostic tools that can precisely identify eligible pa\n\n\nTitle: Google Scholar\nURL: https://scholar.google.com/scholar?q=recent+advancements+in+infectious+disease+molecular+testing+May+after:2025-05-15&hl=en&as_sdt=0&as_vis=1&oi=scholart\nExcerpt:\nLoading...The system can\'t perform the operation now. Try again later.About 3,460,000 results (0.17 sec) JE Schmitz, CW Stratton, DH Persing…\xa0- Journal of clinical\xa0…, 2022 - journals.asm.org… However, even here, molecular testing can significantly improve patient care by its ability \nto serve in a “rule-in” capacity. For instance, a respiratory or cerebrospinal fluid (CSF) … YW Tang, GW Procop, DH Persing\xa0- Clinical chemistry, 1997 - academic.oup.com… of antimicrobial-resistant strains are in development and in the future may replace traditional \nsusceptibility testing (see below). Until then, molecular screening may be used to determine … … , molecular diagnostics tools are critical for managing emerging viral infectious diseases. PCR \n… Omics research in infectious diseases can be directed towards both organisms separately … … Data included in this manuscript can be requested through the Afghanistan Ministry of \nPublic Health, who maintain the final decision on release of data from t\n\n\nTitle: Molecular Infectious Disease Testing: Navigating the Future of Precision Diagnostics\nURL: https://www.marketsandmarkets.com/blog/HC/molecular-infectious-disease-testing\nExcerpt:\nThe Evolving Landscape of Infectious Disease Diagnostics\n\r\n\tIn an era marked by rapid technological advancements and global health challenges, the field of infectious disease diagnostics is undergoing a significant transformation. Molecular infectious disease testing has emerged as a pivotal tool, offering precise, rapid, and comprehensive detection of pathogens. This evolution is not only enhancing patient outcomes but also reshaping healthcare strategies worldwide.\n\nMarket Overview: A Trajectory of Robust Growth\n\r\n\tThe molecular infectious disease testing market is experiencing substantial growth, driven by increasing demand for accurate and timely diagnostics. Advancements in molecular technologies, coupled with heightened awareness of infectious diseases, are propelling the market forward. The integration of these diagnostics into routine healthcare practices underscores their critical role in modern medicine.\n\nDownload PDF Brochure \n\nKey Market Drivers: Catalysts for Expansion\n\n1.\n'}], 'model': 'gpt-4o-mini', 'temperature': 0.5}}
+2025-05-22 08:55:16,145 | DEBUG | openai._base_client | Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-05-22 08:55:16,145 | DEBUG | httpcore.connection | connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-05-22 08:55:16,185 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1098b0050>
+2025-05-22 08:55:16,186 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x103f2a4e0> server_hostname='api.openai.com' timeout=5.0
+2025-05-22 08:55:16,231 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x103f8bce0>
+2025-05-22 08:55:16,231 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2025-05-22 08:55:16,231 | DEBUG | httpcore.http11 | send_request_headers.complete
+2025-05-22 08:55:16,231 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2025-05-22 08:55:16,231 | DEBUG | httpcore.http11 | send_request_body.complete
+2025-05-22 08:55:16,232 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2025-05-22 08:55:22,527 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Thu, 22 May 2025 12:55:22 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'personal-8rj4hz'), (b'openai-processing-ms', b'6097'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'6104'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9998'), (b'x-ratelimit-remaining-tokens', b'197753'), (b'x-ratelimit-reset-requests', b'10.503s'), (b'x-ratelimit-reset-tokens', b'674ms'), (b'x-request-id', b'req_88f140dc90d1f3a9328959ec6d2946c5'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=2.9vlmlBiy.vvbXwIiAyEqNw3GeigxOaoIaDi4IgFDA-1747918522-1.0.1.1-Jbp4a1HyuGUzQ_nr6Wx8miR_9FM2qWq8tn_OM1IikpR8xI_fHvSiljLuPRsIFHah.x6sNjPaNAfaCOI4byy_TNsVkgatOT0VkuWWejdaMwQ; path=/; expires=Thu, 22-May-25 13:25:22 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=VUWcGFEVVisa9F0BMbFCvKYZ9eSpf8Yw3asFMWrn.VQ-1747918522527-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'943c77873adf1ee4-ORD'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-05-22 08:55:22,530 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-22 08:55:22,530 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2025-05-22 08:55:22,531 | DEBUG | httpcore.http11 | receive_response_body.complete
+2025-05-22 08:55:22,531 | DEBUG | httpcore.http11 | response_closed.started
+2025-05-22 08:55:22,531 | DEBUG | httpcore.http11 | response_closed.complete
+2025-05-22 08:55:22,531 | DEBUG | openai._base_client | HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Thu, 22 May 2025 12:55:22 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'personal-8rj4hz'), ('openai-processing-ms', '6097'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '6104'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9998'), ('x-ratelimit-remaining-tokens', '197753'), ('x-ratelimit-reset-requests', '10.503s'), ('x-ratelimit-reset-tokens', '674ms'), ('x-request-id', 'req_88f140dc90d1f3a9328959ec6d2946c5'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=2.9vlmlBiy.vvbXwIiAyEqNw3GeigxOaoIaDi4IgFDA-1747918522-1.0.1.1-Jbp4a1HyuGUzQ_nr6Wx8miR_9FM2qWq8tn_OM1IikpR8xI_fHvSiljLuPRsIFHah.x6sNjPaNAfaCOI4byy_TNsVkgatOT0VkuWWejdaMwQ; path=/; expires=Thu, 22-May-25 13:25:22 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=VUWcGFEVVisa9F0BMbFCvKYZ9eSpf8Yw3asFMWrn.VQ-1747918522527-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '943c77873adf1ee4-ORD'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-05-22 08:55:22,531 | DEBUG | openai._base_client | request_id: req_88f140dc90d1f3a9328959ec6d2946c5
+2025-05-22 08:55:22,601 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:22,601 | DEBUG | httpcore.connection | close.complete
+2025-05-22 08:55:22,601 | DEBUG | httpcore.connection | close.started
+2025-05-22 08:55:22,601 | DEBUG | httpcore.connection | close.complete
