@@ -10,7 +10,9 @@ def ask_about_articles(question, articles):
     messages = [
         {
             "role": "system",
-            "content": "You are a helpful assistant that answers questions about the day's news."
+            "content": (
+                "You are a helpful assistant that answers questions based only on the provided news summaries."
+                "\n\nHere are today's news summaries:\n" + context)
         },
         {
             "role": "assistant",

@@ -33,7 +33,9 @@ async def run_news_pipeline(user_prompt: str) -> str:
     # ⚙️ Process articles (scrape + summarize)
     tasks = [fetch_article_text(r["link"]) for r in unique_results if r.get("link")]
     articles = await asyncio.gather(*tasks)
-    articles_data = [a for a in articles if a]
+    articles_data = [
+        a for a in articles if a and a.get("text") and len(a.get("text")) > 200
+    ]
 
     print(f"✍️ Processed {len(articles_data)} articles")
 

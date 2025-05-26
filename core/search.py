@@ -1,5 +1,4 @@
 # core/search.py
-from serpapi import GoogleSearch
 from googlesearch import search
 from openai import OpenAI
 import os
@@ -7,6 +6,10 @@ from backend.utils.config import OPENAI_API_KEY, SERPAPI_KEY
 from backend.utils.logger import logger
 from datetime import datetime
 import asyncio
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
+from urllib.parse import urlparse
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -68,11 +71,56 @@ Return your output as a plain list of search-ready strings.
     queries = [line.strip("•-0123456789. ") for line in raw_output.splitlines() if line.strip()]
     return [q for q in queries if q]  # remove any empty strings
 
+def is_relevant_article(url: str, min_word_count: int = 300) -> bool:
+    try:
+        
+        # Blocklist check
+        blocked_domains = ["wikipedia.org", "facebook.com", "twitter.com", "instagram.com"]
+        parsed_url = urlparse(url)
+        domain = parsed_url.netloc.lower()
+        if any(blocked in domain for blocked in blocked_domains):
+            print(f"Skipping {url}: Domain is blocklisted")
+            return False
+        
+        resp = requests.get(url, timeout=5)
+        if resp.status_code != 200:
+            print(f"Skipping {url}: HTTP {resp.status_code}")
+            return False
+        soup = BeautifulSoup(resp.text, "html.parser")
 
-from datetime import datetime, timedelta
-from googlesearch import search
+        # Quick URL keyword filter
+        product_keywords = ["product", "shop", "buy", "cart", "pricing", "order"]
+        if any(k in url.lower() for k in product_keywords):
+            print(f"Skipping {url}: URL contains product keywords")
+            return False
 
-def search_articles(queries: list[str], num_results_per_query: int = 3) -> list[dict]:
+        # Check title and meta description for ad/product phrases
+        title = soup.title.string if soup.title else ""
+        meta_tag = soup.find("meta", attrs={"name": "description"})
+        meta_desc = meta_tag["content"] if meta_tag and meta_tag.get("content") else ""
+
+        combined_text = f"{title} {meta_desc}".lower()
+        ad_keywords = ["buy", "shop", "order now", "add to cart", "free shipping"]
+        if any(k in combined_text for k in ad_keywords):
+            print(f"Skipping {url}: Meta/title contains ad keywords")
+            return False
+
+        # Extract paragraphs and count words
+        paragraphs = soup.find_all("p")
+        text_content = " ".join(p.get_text() for p in paragraphs)
+        word_count = len(text_content.split())
+        if word_count < min_word_count:
+            print(f"Skipping {url}: Content too short ({word_count} words)")
+            return False
+
+        # Passed all checks, consider relevant
+        return True
+
+    except Exception as e:
+        print(f"Error checking relevance for {url}: {e}")
+        return False
+
+def search_articles(queries: list[str], num_results_per_query: int = 10) -> list[dict]:
     all_results = []
     seen_links = set()
 
@@ -86,13 +134,13 @@ def search_articles(queries: list[str], num_results_per_query: int = 3) -> list[
             results = search(query_with_time, num_results=num_results_per_query)
             for url in results:
                 if url not in seen_links:
-                    seen_links.add(url)
-                    all_results.append({"title": "", "link": url})
+                    if is_relevant_article(url):
+                        seen_links.add(url)
+                        all_results.append({"title": "", "link": url})
         except Exception as e:
             print(f"Error searching for '{query}': {e}")
 
     return all_results
-
 
 if __name__ == "__main__":
     from core.search import generate_search_queries  # or update the import if needed

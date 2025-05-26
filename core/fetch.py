@@ -3,6 +3,7 @@ from readability import Document
 from bs4 import BeautifulSoup
 import httpx
 from loguru import logger
+from .summarize import summarize_article
 
 HEADERS = {
     "User-Agent": (
@@ -26,12 +27,13 @@ async def fetch_article_text(url: str, timeout: int = 10) -> dict:
 
         if len(text.strip()) < 200:
             logger.warning(f"⚠️ Skipping {url} — too little text")
-            return {"url": url, "title": title, "text": ""}
+            return {"url": url, "title": title, "text": "", "summary": ""}
+        
+        summary = await summarize_article(text)
 
         logger.info(f"✅ Text length from {url}: {len(text)}")
-        return {"url": url, "title": title, "text": text.strip()}
-        
+        return {"url": url, "title": title, "text": text.strip(), "summary": summary}
 
     except Exception as e:
         logger.warning(f"❌ Failed to fetch or parse {url}: {e}")
-        return {"url": url, "title": "", "text": ""}
+        return {"url": url, "title": "", "text": "", "summary": ""}

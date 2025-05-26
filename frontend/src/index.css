@@ -5,6 +5,12 @@
   margin-bottom: 20px; /* Add some space below the carousel */
 }
 
+/* Fix arrow colors so they are visible on all backgrounds */
+.slick-prev::before,
+.slick-next::before {
+  color: #1d4ed8 !important; /* Tailwind blue-700 */
+  font-size: 24px;
+}
 /* Ensure slides are properly contained - helps prevent overflow issues */
 .slick-slide > div {
   /* The 'p-2' class was added to this div in SummaryViewer.jsx for spacing between slides */

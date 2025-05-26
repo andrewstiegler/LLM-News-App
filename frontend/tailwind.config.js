@@ -7,5 +7,18 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+],
 }
+
+theme: {
+  extend: {
+    colors: {
+      primary: '#2563EB',
+      accent: '#FACC15',
+      dark: '#111827',
+      light: '#F3F4F6',
+    },
+  },
+},
