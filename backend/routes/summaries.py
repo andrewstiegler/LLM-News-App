@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from utils.load_data import get_latest_data
+from backend.utils.load_data import get_latest_data
 
 summaries_bp = Blueprint("summaries", __name__)
 

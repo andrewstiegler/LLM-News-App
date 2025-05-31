@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from utils.load_data import get_latest_data
-from services.openai_client import ask_about_articles
+from backend.utils.load_data import get_latest_data
+from backend.services.openai_client import ask_about_articles
 
 chat_bp = Blueprint("chat", __name__)
 

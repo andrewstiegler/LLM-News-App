@@ -1,14 +1,33 @@
-import SummaryViewer from "./components/SummaryViewer";
-import ChatBox from './components/ChatBox';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import LandingPage from "../pages/LandingPage";
+import Dashboard from "../pages/Dashboard";
+import History from "../pages/History";
+import Settings from "../pages/Settings";
 
 function App() {
+  const { isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) return <p>Loading...</p>;
+
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 max-w-full sm:max-w-2xl lg:max-w-5xl mx-auto font-sans bg-gray-50 rounded-2xl shadow-md mt-10">
-      <h1 className="text-3xl font-bold mb-4">🧠 LLM News App</h1>
-      <SummaryViewer />
-      <div className="mt-8"></div>
-        <ChatBox />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/dashboard"
+          element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/history"
+          element={isAuthenticated ? <History /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/settings"
+          element={isAuthenticated ? <Settings /> : <Navigate to="/" />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
