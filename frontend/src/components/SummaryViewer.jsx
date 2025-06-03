@@ -1,30 +1,53 @@
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ReactMarkdown from "react-markdown";
 
 function SummaryViewer() {
+  const { getAccessTokenSilently } = useAuth0();
   const [summary, setSummary] = useState("");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    fetch("/api/summaries")
-      .then((res) => res.json())
-      .then((data) => {
+    async function fetchSummaries() {
+      try {
+        const token = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: import.meta.env.VITE_AUTH0_AUDIENCE
+          }
+      });
+
+        const res = await fetch("http://127.0.0.1:5000/api/summaries", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
         setSummary(data.daily_summary);
         setArticles(data.articles);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Error fetching summaries:", err);
+        setError(err.message || "Error fetching summaries");
+      } finally {
         setLoading(false);
-      });
-  }, []);
+      }
+    }
+
+    fetchSummaries();
+  }, [getAccessTokenSilently]);
 
   if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   const settings = {
     dots: true,
@@ -34,14 +57,8 @@ function SummaryViewer() {
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 600,
-        settings: { slidesToShow: 1 },
-      },
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 600, settings: { slidesToShow: 1 } },
     ],
   };
 
@@ -50,7 +67,7 @@ function SummaryViewer() {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 text-primary">📰 Daily Summary</h2>
-      
+
       <div className="text-gray-800 text-base leading-relaxed transition-all duration-300 ease-in-out mb-4">
         <p className={expanded ? "" : "line-clamp-3 whitespace-pre-line"}>
           <ReactMarkdown>{summary}</ReactMarkdown>
@@ -76,9 +93,7 @@ function SummaryViewer() {
               >
                 {a.title || a.url}
               </a>
-              <p className="text-sm text-gray-600 line-clamp-6">
-                {a.summary}
-              </p>
+              <p className="text-sm text-gray-600 line-clamp-6">{a.summary}</p>
             </div>
           </div>
         ))}

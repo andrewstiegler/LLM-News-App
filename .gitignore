@@ -2,3 +2,6 @@
 /logs
 daily*.json
 *.log
+# Ignore data outputs
+/data/*
+!/data/.gitignore

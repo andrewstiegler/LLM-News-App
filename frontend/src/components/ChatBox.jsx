@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function ChatBox() {
   const [messages, setMessages] = useState([]);
@@ -7,6 +8,7 @@ export default function ChatBox() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
+  const {getAccessTokenSilently} = useAuth0();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -25,32 +27,49 @@ export default function ChatBox() {
   }, [question]);
 
   const sendMessage = async () => {
-    if (!question.trim()) return;
+  console.log("📡 Sending question:", question);
+  if (!question.trim()) return;
 
-    const userMessage = { sender: 'user', text: question };
-    setMessages((prev) => [...prev, userMessage]);
-    setIsLoading(true);
+  const userMessage = { sender: 'user', text: question };
+  setMessages((prev) => [...prev, userMessage]);
+  setIsLoading(true);
 
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question }),
-      });
+  try {
+    // Call getAccessTokenSilently to get the actual token!
+    const token = await getAccessTokenSilently({
+      authorizationParams: {
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE
+      }
+    });
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ question }),
+    });
 
-      const data = await res.json();
-      const botMessage = { sender: 'bot', text: data.response || 'No response.' };
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        { sender: 'bot', text: '⚠️ Error: Could not get response.' },
-      ]);
-    } finally {
-      setIsLoading(false);
-      setQuestion('');
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
-  };
+
+    const data = await res.json();
+    console.log("✅ Raw response:", data);
+
+    const botMessage = { sender: 'bot', text: data.response || 'No response.' };
+    setMessages((prev) => [...prev, botMessage]);
+  } catch (err) {
+    console.error("❌ sendMessage error:", err);
+    setMessages((prev) => [
+      ...prev,
+      { sender: 'bot', text: '⚠️ Error: Could not get response.' },
+    ]);
+  } finally {
+    setIsLoading(false);
+    setQuestion('');
+  }
+};
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {

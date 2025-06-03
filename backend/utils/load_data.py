@@ -1,18 +1,33 @@
+import logging
 import json
-from pathlib import Path
+from backend.models import db, UserResult
 
-# Get the path two levels up from utils/load_data.py to reach the project root
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = PROJECT_ROOT.parent / "data"  # Go up one more to get to project root
+def get_latest_data(user_id: str):
+    try:
+        result = (
+            UserResult.query
+            .filter_by(user_id=user_id)
+            .order_by(UserResult.created_at.desc())
+            .first()
+        )
+        if not result:
+            logging.warning(f"No UserResult found for user_id: {user_id}")
+            return None
 
-def get_latest_data():
-    if not DATA_DIR.exists():
-        raise FileNotFoundError(f"Data directory not found at: {DATA_DIR}")
+        if not result.result_json:
+            logging.warning(f"UserResult found but result_json is empty for user_id: {user_id}")
+            return None
 
-    files = sorted([f for f in DATA_DIR.iterdir() if f.suffix == ".json"], reverse=True)
-    if not files:
+        if isinstance(result.result_json, str):
+            try:
+                 return json.loads(result.result_json)
+            except json.JSONDecodeError as e:
+                logging.error(f"Failed to decode JSON from DB for user_id {user_id}: {e}")
+                return None
+        
+        # If it's already a dict (JSONB), return as-is
+        return result.result_json
+
+    except Exception as e:
+        logging.error(f"Exception querying UserResult for user_id {user_id}: {e}", exc_info=True)
         return None
-
-    latest_file = files[0]
-    with open(latest_file, "r") as f:
-        return json.load(f)

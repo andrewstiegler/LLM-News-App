@@ -18,7 +18,8 @@ async def summarize_article(text: str, max_words: int = 300) -> str:
             temperature=0.5
         )
         
-        return response.choices[0].message.content.strip()
+        content = response.choices[0].message.content
+        return content.strip() if content is not None else "Error: no summary generated"
 
     return await to_thread(_summarize)
 
@@ -51,6 +52,7 @@ async def generate_daily_summary(articles: list[dict], max_words: int = 300) -> 
             temperature=0.5
         )
 
-        return response.choices[0].message.content.strip()
+        content = response.choices[0].message.content
+        return content.strip() if content is not None else "Error: no summary generated"
 
     return await to_thread(_summarize_all)

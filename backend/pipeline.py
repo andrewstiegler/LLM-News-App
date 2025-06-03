@@ -1,4 +1,3 @@
-import os
 import json
 from datetime import datetime
 import asyncio
@@ -7,7 +6,14 @@ from core.search import generate_search_queries, search_articles
 from core.fetch import fetch_article_text  # includes fetch + summarize
 from core.summarize import summarize_article, generate_daily_summary
 
-async def run_news_pipeline(user_prompt: str) -> str:
+from backend.models import db, UserResult
+
+async def run_news_pipeline(user_id: str, user_prompt: str) -> str:
+    if not user_id or not isinstance(user_id, str):
+        raise ValueError("user_id must be a non-empty string")
+    if not user_prompt or not user_prompt.strip():
+        raise ValueError("user_prompt must be a non-empty string")
+        
     print(f"🔍 Generating search queries for: '{user_prompt}'")
     search_queries = generate_search_queries(user_prompt)
     print(f"[Search Queries]: {search_queries}")
@@ -33,9 +39,13 @@ async def run_news_pipeline(user_prompt: str) -> str:
     # ⚙️ Process articles (scrape + summarize)
     tasks = [fetch_article_text(r["link"]) for r in unique_results if r.get("link")]
     articles = await asyncio.gather(*tasks)
-    articles_data = [
-        a for a in articles if a and a.get("text") and len(a.get("text")) > 200
-    ]
+    articles_data = []
+    for a in articles:
+        if not a:
+            continue
+        text = a.get("text")
+        if text and len(text) > 200:
+            articles_data.append(a)
 
     print(f"✍️ Processed {len(articles_data)} articles")
 
@@ -50,11 +60,17 @@ async def run_news_pipeline(user_prompt: str) -> str:
         "articles": articles_data,
     }
 
-    os.makedirs("data", exist_ok=True)
-    save_path = f"data/daily_{datetime.now().strftime('%Y%m%d')}.json"
-    with open(save_path, "w") as f:
-        json.dump(save_data, f, indent=2)
+    try:
+        result_entry = UserResult(
+            user_id=user_id, # type: ignore
+            result_json=json.dumps(save_data), # type: ignore
+        )
 
-    print(f"✅ Saved {len(articles_data)} articles and summary to {save_path}")
-
+        db.session.add(result_entry)
+        db.session.commit()
+        print(f"✅ DB Write Successful: Saved {len(articles_data)} articles for user {user_id}")
+    except Exception as e:
+        db.session.rollback()
+        print(f"❌ DB Write Failed: {e}")
+    
     return daily_summary

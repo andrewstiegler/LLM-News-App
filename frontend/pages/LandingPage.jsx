@@ -4,7 +4,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import UserMenu from "../src/components/UserMenu";
 
 export default function LandingPage() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const {
+    loginWithRedirect,
+    logout,
+    isAuthenticated,
+    user,
+  } = useAuth0();
+
   const navigate = useNavigate();
 
   // Auto-redirect if already authenticated
@@ -14,10 +20,19 @@ export default function LandingPage() {
     }
   }, [isAuthenticated, navigate]);
 
+  const handleLogin = () => {
+    loginWithRedirect({
+      authorizationParams: {
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+        scope: "read:summary", // You can add more scopes as needed
+      },
+    });
+  };
+
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-4">Welcome to LLM News App</h1>
-              <UserMenu />
+      <UserMenu />
       {isAuthenticated ? (
         <>
           <p className="mb-2">Logged in as {user.name || user.email}</p>
@@ -31,7 +46,7 @@ export default function LandingPage() {
       ) : (
         <button
           className="text-blue-600 underline"
-          onClick={() => loginWithRedirect()}
+          onClick={handleLogin}
         >
           Log in
         </button>
