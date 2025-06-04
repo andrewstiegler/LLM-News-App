@@ -21,6 +21,10 @@ AUTH0_CLIENT_ID = os.getenv("AUTH0_CLIENT_ID")
 AUTH0_API_AUDIENCE = os.getenv("AUTH0_API_AUDIENCE")
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Fix Heroku-style DATABASE_URL if needed
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 # Safety check — only warn if missing and not on Heroku
 if not os.getenv("DYNO"):  # Set automatically on Heroku
     required_vars = {
