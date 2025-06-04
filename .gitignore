@@ -1,7 +1,51 @@
-.env
-/logs
-daily*.json
+# Python artifacts
+__pycache__/
+backend/__pycache__/
+*.pyc
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Logs and debugging
 *.log
-# Ignore data outputs
+logs/
+*.pid
+*.out
+*.err
+
+# Local environment files
+.env
+.env.*  # Covers .env.staging, .env.local, etc.
+
+# Data outputs
 /data/*
 !/data/.gitignore
+daily*.json
+
+# Flask-specific
+instance/
+*.db
+*.sqlite
+
+# VSCode & IDEs
+.vscode/
+.idea/
+
+# macOS & OS files
+.DS_Store
+Thumbs.db
+
+# Netlify
+netlify.toml
+
+# Node/React frontend (if part of repo)
+node_modules/
+build/
