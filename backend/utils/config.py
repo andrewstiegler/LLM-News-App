@@ -18,14 +18,18 @@ AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN")
 AUTH0_CLIENT_ID = os.getenv("AUTH0_CLIENT_ID")
 AUTH0_API_AUDIENCE = os.getenv("AUTH0_API_AUDIENCE")
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 # Optional safety check
 required_vars = {
      "OPENAI_API_KEY": OPENAI_API_KEY,
      "POSTGRES_URL": POSTGRES_URL,
      "AUTH0_DOMAIN": AUTH0_DOMAIN,
      "AUTH0_CLIENT_ID": AUTH0_CLIENT_ID,
-     "AUTH0_API_AUDIENCE": AUTH0_API_AUDIENCE
+     "AUTH0_API_AUDIENCE": AUTH0_API_AUDIENCE,
+     "DATABASE_URL": DATABASE_URL,
  }
+
 for var, val in required_vars.items():
     if not val:
         raise ValueError(f"Missing required environment variable: {var}")
