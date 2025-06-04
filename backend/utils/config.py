@@ -22,7 +22,7 @@ AUTH0_API_AUDIENCE = os.getenv("AUTH0_API_AUDIENCE")
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Safety check — only warn if missing and not on Heroku
-if not os.getenv("llm-news-backend-staging"):  # Set automatically on Heroku
+if not os.getenv("DYNO"):  # Set automatically on Heroku
     required_vars = {
         "OPENAI_API_KEY": OPENAI_API_KEY,
         "POSTGRES_URL": POSTGRES_URL,
