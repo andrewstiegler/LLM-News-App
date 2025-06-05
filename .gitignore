@@ -43,9 +43,6 @@ instance/
 .DS_Store
 Thumbs.db
 
-# Netlify
-netlify.toml
-
 # Node/React frontend (if part of repo)
 node_modules/
 build/

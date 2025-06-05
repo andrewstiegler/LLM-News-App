@@ -8,6 +8,7 @@ from datetime import datetime
 import asyncio
 import requests
 from bs4 import BeautifulSoup
+from bs4 import Tag
 from datetime import datetime, timedelta
 from urllib.parse import urlparse
 
