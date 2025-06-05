@@ -13,6 +13,8 @@ function SummaryViewer() {
   const [error, setError] = useState(null);
   const [expanded, setExpanded] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     async function fetchSummaries() {
       try {
@@ -22,7 +24,7 @@ function SummaryViewer() {
           }
       });
 
-        const res = await fetch("http://127.0.0.1:5000/api/summaries", {
+        const res = await fetch(`${apiUrl}/api/summaries`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

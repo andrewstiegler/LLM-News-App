@@ -9,6 +9,8 @@ export default function Settings() {
   const [status, setStatus] = useState(null);
   const {getAccessTokenSilently} = useAuth0();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("Running...");
@@ -20,7 +22,7 @@ export default function Settings() {
           }
       });
       
-      const res = await axios.post("http://127.0.0.1:5000/api/run_pipeline", {
+      const res = await axios.post(`${apiUrl}/api/run_pipeline`, {
         user_id: user.sub,
         user_prompt: prompt,
       },

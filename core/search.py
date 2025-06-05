@@ -68,7 +68,10 @@ Return your output as a plain list of search-ready strings.
     raw_output = response.choices[0].message.content
 
     # Parse into list — try to be resilient to either newline or numbered formats
-    queries = [line.strip("•-0123456789. ") for line in raw_output.splitlines() if line.strip()]
+    if raw_output is not None:
+        queries = [line.strip("•-0123456789. ") for line in raw_output.splitlines() if line.strip()]
+    else:
+        queries = []
     return [q for q in queries if q]  # remove any empty strings
 
 def is_relevant_article(url: str, min_word_count: int = 300) -> bool:
@@ -97,7 +100,7 @@ def is_relevant_article(url: str, min_word_count: int = 300) -> bool:
         # Check title and meta description for ad/product phrases
         title = soup.title.string if soup.title else ""
         meta_tag = soup.find("meta", attrs={"name": "description"})
-        meta_desc = meta_tag["content"] if meta_tag and meta_tag.get("content") else ""
+        meta_desc = meta_tag.get("content", "") if isinstance(meta_tag, Tag) else ""
 
         combined_text = f"{title} {meta_desc}".lower()
         ad_keywords = ["buy", "shop", "order now", "add to cart", "free shipping"]
