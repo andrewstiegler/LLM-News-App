@@ -20,6 +20,8 @@ AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN")
 AUTH0_CLIENT_ID = os.getenv("AUTH0_CLIENT_ID")
 AUTH0_API_AUDIENCE = os.getenv("AUTH0_API_AUDIENCE")
 DATABASE_URL = os.getenv("DATABASE_URL")
+REDIS_URL = os.getenv("REDIS_URL")
+REDIS_TOKEN = os.getenv("REDIS_TOKEN")
 
 # Fix Heroku-style DATABASE_URL if needed
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):

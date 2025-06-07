@@ -56,9 +56,11 @@ python-dotenv==1.1.0
 python-jose==3.5.0
 PyYAML==6.0.2
 readability-lxml==0.8.4.1
+redis>=4.5.0
 regex==2024.11.6
 requests==2.32.3
 requests-file==2.1.0
+rq>=1.10
 rsa==4.9.1
 serpapi==0.1.5
 sgmllib3k==1.0.0

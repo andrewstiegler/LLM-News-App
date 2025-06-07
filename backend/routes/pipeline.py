@@ -2,9 +2,12 @@ from flask import Blueprint, request, jsonify
 from flask_cors import cross_origin
 import asyncio
 
+from upstash_redis import Redis
 from backend.pipeline import run_news_pipeline
 from backend.models import db, User
 from backend.utils.auth import requires_auth
+
+redis = Redis(url="https://refined-lionfish-46203.upstash.io", token="AbR7AAIjcDFjMTljNTlkMzNjZGY0NTljOWEzMTU4MjVmM2QwY2MzYnAxMA")
 
 pipeline_bp = Blueprint("pipeline", __name__)
 
