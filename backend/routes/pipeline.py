@@ -1,13 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_cors import cross_origin
-import asyncio
-
-from upstash_redis import Redis
-from backend.pipeline import run_news_pipeline
-from backend.models import db, User
+from datetime import datetime
+from backend.models import db, UserPrompt
 from backend.utils.auth import requires_auth
-
-redis = Redis(url="https://refined-lionfish-46203.upstash.io", token="AbR7AAIjcDFjMTljNTlkMzNjZGY0NTljOWEzMTU4MjVmM2QwY2MzYnAxMA")
 
 pipeline_bp = Blueprint("pipeline", __name__)
 
@@ -26,9 +21,17 @@ def run_pipeline_route(payload):
         return jsonify({"error": "Missing user_id or user_prompt"}), 400
 
     try:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        summary = loop.run_until_complete(run_news_pipeline(user_id, user_prompt))
-        return jsonify({"status": "success", "summary": summary})
+        # Create a new UserPrompt with status = 'pending'
+        prompt = UserPrompt(
+            user_id=user_id,
+            prompt_text=user_prompt,
+            status="pending",
+            created_at=datetime.utcnow()
+        )
+        db.session.add(prompt)
+        db.session.commit()
+
+        return jsonify({"status": "queued", "prompt_id": prompt.id}), 202
+
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500

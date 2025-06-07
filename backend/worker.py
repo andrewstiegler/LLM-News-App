@@ -1,31 +1,52 @@
 import asyncio
-import json
-from upstash_redis import Redis
-from backend.pipeline import run_news_pipeline  # adjust import as needed
-from backend.utils.config import REDIS_URL, REDIS_TOKEN  # adjust import as needed
+import time
+from backend.pipeline import run_news_pipeline
+from backend.models import db, UserPrompt
+from flask import Flask
+from backend.utils.config import DATABASE_URL
 
-REDIS_URL = REDIS_URL
-REDIS_TOKEN = REDIS_TOKEN
+# Minimal Flask app context to use SQLAlchemy outside the main app
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
 
-redis = Redis(url="https://refined-lionfish-46203.upstash.io", token="AbR7AAIjcDFjMTljNTlkMzNjZGY0NTljOWEzMTU4MjVmM2QwY2MzYnAxMA")
+async def process_prompt(prompt_obj):
+    try:
+        print(f"📥 Processing prompt ID {prompt_obj.id} for user {prompt_obj.user_id}")
+        await run_news_pipeline(prompt_obj.user_id, prompt_obj.prompt_text)
+
+        # Mark as completed
+        prompt_obj.status = 'completed'
+        db.session.commit()
+        print(f"✅ Completed prompt ID {prompt_obj.id}")
+
+    except Exception as e:
+        print(f"❌ Error processing prompt ID {prompt_obj.id}: {e}")
+        prompt_obj.status = 'error'
+        db.session.commit()
 
 async def main():
-    print("🚀 Worker started. Listening for tasks...")
+    print("🚀 Worker started. Polling for pending prompts...")
     while True:
         try:
-            _, task_data = await client.blpop("pipeline_queue")
-            task = json.loads(task_data)
-            print(f"📥 Received task: {task}")
-            
-            user_id = task.get("user_id")
-            prompt = task.get("prompt")
+            with app.app_context():
+                pending_prompt = (
+                    db.session.query(UserPrompt)
+                    .filter_by(status='pending')
+                    .order_by(UserPrompt.created_at.asc())
+                    .first()
+                )
 
-            result = await run_news_pipeline(user_id, prompt)
-            print(f"✅ Finished task: {task['task_id']}")
-            # optionally: store result in Redis or DB here
+                if pending_prompt:
+                    await process_prompt(pending_prompt)
+                else:
+                    print("🕐 No pending prompts. Sleeping...")
 
         except Exception as e:
-            print(f"❌ Error processing task: {e}")
+            print(f"❌ Worker loop error: {e}")
+
+        time.sleep(5)  # Poll every 5 seconds
 
 if __name__ == "__main__":
     asyncio.run(main())
