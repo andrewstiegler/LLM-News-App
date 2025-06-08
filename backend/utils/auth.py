@@ -4,6 +4,7 @@ from jose import jwt
 from jose.exceptions import ExpiredSignatureError, JWTClaimsError
 import requests
 from backend.utils.config import AUTH0_DOMAIN, AUTH0_API_AUDIENCE
+from core.seed_users import seed_user
 
 AUTH0_DOMAIN = AUTH0_DOMAIN
 API_AUDIENCE = AUTH0_API_AUDIENCE
@@ -81,7 +82,23 @@ def requires_auth(f):
         except Exception as e:
             print(f"🔴 Token parsing failed: {e}")
             return jsonify({"message": "Unable to parse authentication token."}), 401
+        # Seed the user in DB if not exists
+        
+        user_info = {
+                "sub": payload.get("sub"),
+                "email": payload.get("email"),
+                "name": payload.get("name"),
+            }
+        
+        seed_user(
+            user_id=user_info['sub'],
+            email=user_info['email'],
+            name=user_info.get('name')
+        )
 
+        # Optionally, you can add user_info to flask.g for downstream use
+        from flask import g
+        g.user = user_info
         return f(payload, *args, **kwargs)
 
     return decorated
