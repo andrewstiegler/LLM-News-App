@@ -3,6 +3,7 @@ from flask_cors import cross_origin
 from datetime import datetime
 from backend.models import db, UserPrompt
 from backend.utils.auth import requires_auth
+import traceback
 
 pipeline_bp = Blueprint("pipeline", __name__)
 
@@ -32,6 +33,6 @@ def run_pipeline_route(payload):
         db.session.commit()
 
         return jsonify({"status": "queued", "prompt_id": prompt.id}), 202
-
     except Exception as e:
+        traceback.print_exc()  # <--- This will show the real traceback in logs
         return jsonify({"status": "error", "message": str(e)}), 500
