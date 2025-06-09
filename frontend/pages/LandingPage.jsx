@@ -24,7 +24,8 @@ export default function LandingPage() {
     loginWithRedirect({
       authorizationParams: {
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-        scope: "openid profile email read:summary", // You can add more scopes as needed
+        scope: "openid profile email read:summary",
+        prompt: "consent"
       },
     });
   };

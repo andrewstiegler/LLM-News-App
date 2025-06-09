@@ -20,7 +20,7 @@ def seed_user(user_id: str, email: str, name: str = None) -> User:
         db.session.add(new_user)
         db.session.commit()
         return new_user
-    except IntegrityError:
+    except IntegrityError as e:
         db.session.rollback()
         print("❌ Error committing user:", e)
 
