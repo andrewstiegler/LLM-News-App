@@ -17,10 +17,8 @@ export default function LandingPage() {
   // Auto-redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      // Log user info object from Auth0
       console.log("🟢 Authenticated user:", user);
 
-      // Fetch and log full ID token claims
       getIdTokenClaims()
         .then((claims) => {
           console.log("🟢 ID Token claims:", claims);
@@ -28,10 +26,18 @@ export default function LandingPage() {
         .catch((e) => {
           console.error("🔴 Failed to get ID token claims:", e);
         });
+      }
+    }, [isAuthenticated, user, getIdTokenClaims]);
 
-      navigate("/dashboard");
+  useEffect(() => {
+    if (isAuthenticated) {
+      const timer = setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000); // Give logging time to finish
+
+      return () => clearTimeout(timer);
     }
-  }, [isAuthenticated, navigate, user, getIdTokenClaims]);
+    }, [isAuthenticated, navigate]);
 
   const handleLogin = () => {
     loginWithRedirect({
