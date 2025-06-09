@@ -7,6 +7,8 @@ def seed_user(user_id: str, email: str, name: str = None) -> User:
     If not, create and add user to DB.
     Returns the User instance.
     """
+    print(f"👤 Seeding user: {user_id}")
+
     user = User.query.get(user_id)
     if user:
         # User already exists, just return it
@@ -20,5 +22,7 @@ def seed_user(user_id: str, email: str, name: str = None) -> User:
         return new_user
     except IntegrityError:
         db.session.rollback()
+        print("❌ Error committing user:", e)
+
         # If it fails due to a race condition or other, try to get the user again
         return User.query.get(user_id)

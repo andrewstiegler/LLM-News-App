@@ -90,6 +90,8 @@ def requires_auth(f):
                 "name": payload.get("name"),
             }
         
+        print("🟢 Calling seed_user with:", user_info)
+
         seed_user(
             user_id=user_info['sub'],
             email=user_info['email'],
