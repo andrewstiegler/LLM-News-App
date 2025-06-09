@@ -21,7 +21,7 @@ export default function LandingPage() {
 
       getIdTokenClaims()
         .then((claims) => {
-          console.log("🟢 ID Token claims:", claims);
+          console.log("🟢 ID Token claims:", JSON.stringify(claims, null, 2));
         })
         .catch((e) => {
           console.error("🔴 Failed to get ID token claims:", e);
@@ -33,7 +33,7 @@ export default function LandingPage() {
     if (isAuthenticated) {
       const timer = setTimeout(() => {
         navigate("/dashboard");
-      }, 1000); // Give logging time to finish
+      }, 10000); // Give logging time to finish
 
       return () => clearTimeout(timer);
     }
