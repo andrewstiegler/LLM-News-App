@@ -42,7 +42,6 @@ export default function LandingPage() {
   const handleLogin = () => {
     loginWithRedirect({
       authorizationParams: {
-        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         scope: "openid profile email read:summary",
         prompt: "consent",
       },
