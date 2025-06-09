@@ -9,6 +9,7 @@ export default function LandingPage() {
     logout,
     isAuthenticated,
     user,
+    getIdTokenClaims,
   } = useAuth0();
 
   const navigate = useNavigate();
@@ -16,16 +17,28 @@ export default function LandingPage() {
   // Auto-redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
+      // Log user info object from Auth0
+      console.log("🟢 Authenticated user:", user);
+
+      // Fetch and log full ID token claims
+      getIdTokenClaims()
+        .then((claims) => {
+          console.log("🟢 ID Token claims:", claims);
+        })
+        .catch((e) => {
+          console.error("🔴 Failed to get ID token claims:", e);
+        });
+
       navigate("/dashboard");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, user, getIdTokenClaims]);
 
   const handleLogin = () => {
     loginWithRedirect({
       authorizationParams: {
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         scope: "openid profile email read:summary",
-        prompt: "consent"
+        prompt: "consent",
       },
     });
   };
@@ -45,10 +58,7 @@ export default function LandingPage() {
           </button>
         </>
       ) : (
-        <button
-          className="text-blue-600 underline"
-          onClick={handleLogin}
-        >
+        <button className="text-blue-600 underline" onClick={handleLogin}>
           Log in
         </button>
       )}
