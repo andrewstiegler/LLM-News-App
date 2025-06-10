@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ReactMarkdown from "react-markdown";
 
 function SummaryViewer() {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getIdTokenClaims } = useAuth0();
   const [summary, setSummary] = useState("");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,11 +18,8 @@ function SummaryViewer() {
   useEffect(() => {
     async function fetchSummaries() {
       try {
-        const token = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: import.meta.env.VITE_AUTH0_AUDIENCE
-          }
-      });
+        const claims = await getIdTokenClaims();
+        const token = claims.__raw;
 
         const res = await fetch(`${apiUrl}/api/summaries`, {
           headers: {
@@ -46,7 +43,7 @@ function SummaryViewer() {
     }
 
     fetchSummaries();
-  }, [getAccessTokenSilently]);
+  }, [getIdTokenClaims]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

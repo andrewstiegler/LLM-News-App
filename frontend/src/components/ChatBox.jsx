@@ -8,7 +8,7 @@ export default function ChatBox() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
-  const {getAccessTokenSilently} = useAuth0();
+  const {getIdTokenClaims} = useAuth0();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -36,11 +36,9 @@ export default function ChatBox() {
 
   try {
     // Call getAccessTokenSilently to get the actual token!
-    const token = await getAccessTokenSilently({
-      authorizationParams: {
-        audience: import.meta.env.VITE_AUTH0_AUDIENCE
-      }
-    });
+    const claims = await getIdTokenClaims();
+    const token = claims.__raw;
+
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: {
