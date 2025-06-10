@@ -3,7 +3,7 @@ from flask import request, jsonify
 from jose import jwt
 from jose.exceptions import ExpiredSignatureError, JWTClaimsError
 import requests
-from backend.utils.config import AUTH0_DOMAIN, AUTH0_API_AUDIENCE
+from backend.utils.config import AUTH0_DOMAIN, AUTH0_API_AUDIENCE, AUTH0_CLIENT_ID
 from core.seed_users import seed_user
 
 AUTH0_DOMAIN = AUTH0_DOMAIN
@@ -67,7 +67,7 @@ def requires_auth(f):
                 token,
                 rsa_key,
                 algorithms=ALGORITHMS,
-                audience=API_AUDIENCE,
+                audience=AUTH0_CLIENT_ID,
                 issuer=f"https://{AUTH0_DOMAIN}/"
             )
 

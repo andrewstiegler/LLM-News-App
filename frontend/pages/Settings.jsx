@@ -7,7 +7,7 @@ export default function Settings() {
   const { user } = useAuth0();
   const [prompt, setPrompt] = useState("");
   const [status, setStatus] = useState(null);
-  const {getAccessTokenSilently} = useAuth0();
+  const {getIdTokenClaims} = useAuth0();
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -16,21 +16,22 @@ export default function Settings() {
     setStatus("Running...");
 
     try {
-      const token = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: import.meta.env.VITE_AUTH0_AUDIENCE
+      const claims = await getIdTokenClaims();
+      const idToken = claims.__raw; // <-- This is the full ID token
+
+      const res = await axios.post(
+        `${apiUrl}/api/run_pipeline`,
+        {
+          user_id: user.sub,
+          user_prompt: prompt,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`, // Send ID token instead of access token
+            "Content-Type": "application/json",
           }
-      });
-      
-      const res = await axios.post(`${apiUrl}/api/run_pipeline`, {
-        user_id: user.sub,
-        user_prompt: prompt,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, // ⬅️ Add bearer token to request
-          "Content-Type": "application/json",
-        },});
+        }
+      );
 
       if (res.data.status === "success") {
         setStatus("✅ Pipeline ran successfully!");
