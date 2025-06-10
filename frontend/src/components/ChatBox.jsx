@@ -10,6 +10,8 @@ export default function ChatBox() {
   const textareaRef = useRef(null);
   const {getIdTokenClaims} = useAuth0();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -39,7 +41,7 @@ export default function ChatBox() {
     const claims = await getIdTokenClaims();
     const token = claims.__raw;
 
-    const res = await fetch('/api/chat', {
+    const res = await fetch(`${apiUrl}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
