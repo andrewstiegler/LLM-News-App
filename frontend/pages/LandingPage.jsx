@@ -33,7 +33,7 @@ export default function LandingPage() {
     if (isAuthenticated) {
       const timer = setTimeout(() => {
         navigate("/dashboard");
-      }, 10000); // Give logging time to finish
+      }, 10); // Give logging time to finish
 
       return () => clearTimeout(timer);
     }
